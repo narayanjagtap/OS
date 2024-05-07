@@ -1,0 +1,5 @@
+MKdir Narayan
+cd Narayan
+gedit filename.c
+gcc filename.c
+./a.out
