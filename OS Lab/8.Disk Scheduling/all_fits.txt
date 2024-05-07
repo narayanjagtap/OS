@@ -1,0 +1,118 @@
+ubuntu@ubuntu-HP-dx2480-MT-FH295PA:~$ gcc all_fits.c
+ubuntu@ubuntu-HP-dx2480-MT-FH295PA:~$ ./a.out
+
+Enter no of holes:6
+
+Enter size of holes:
+[1]:15
+
+[2]:10
+
+[3]:5
+
+[4]:25
+
+[5]:30
+
+[6]:40
+
+Enter no of processes:4
+
+Enter size of processes:
+[1]:12
+
+[2]:2
+
+[3]:25
+
+[4]:20
+
+>>>>>>>>>>>>>>>>>>>>>>MENU<<<<<<<<<<<<<<<<<<<<<<<<<<<		
+1.First Fit		
+2.Best Fit		
+3.Next Fit		
+4.Worst Fit		
+5.Exit		
+Enter choice(1-4):1
+
+Incoming process p1 of size 12k
+Process alloted a hole of size:15k
+New list of holes is : 3k, 10k, 5k, 25k, 30k, 40k, 
+Incoming process p2 of size 2k
+Process alloted a hole of size:3k
+New list of holes is : 1k, 10k, 5k, 25k, 30k, 40k, 
+Incoming process p3 of size 25k
+Process alloted a hole of size:25k
+New list of holes is : 1k, 10k, 5k, 30k, 40k, 
+Incoming process p4 of size 20k
+Process alloted a hole of size:30k
+New list of holes is : 1k, 10k, 5k, 10k, 40k, 
+>>>>>>>>>>>>>>>>>>>>>>MENU<<<<<<<<<<<<<<<<<<<<<<<<<<<		
+1.First Fit		
+2.Best Fit		
+3.Next Fit		
+4.Worst Fit		
+5.Exit		
+Enter choice(1-4):2
+
+Incoming process p1 of size 12k
+Process alloted a hole of size:15k
+New list of holes is : 3k, 10k, 5k, 25k, 30k, 40k, 
+Incoming process p2 of size 2k
+Process alloted a hole of size:3k
+New list of holes is : 1k, 10k, 5k, 25k, 30k, 40k, 
+Incoming process p3 of size 25k
+Process alloted a hole of size:25k
+Process alloted a hole of size:25k
+New list of holes is : 1k, 10k, 5k, 30k, 40k, 
+Incoming process p4 of size 20k
+Process alloted a hole of size:30k
+New list of holes is : 1k, 10k, 5k, 10k, 40k, 
+>>>>>>>>>>>>>>>>>>>>>>MENU<<<<<<<<<<<<<<<<<<<<<<<<<<<		
+1.First Fit		
+2.Best Fit		
+3.Next Fit		
+4.Worst Fit		
+5.Exit		
+Enter choice(1-4):3
+
+Incoming process p1 of size 12k
+Process alloted a hole of size:15k
+New list of holes is : 3k, 10k, 5k, 25k, 30k, 40k, 
+Incoming process p2 of size 2k
+Process alloted a hole of size:3k
+New list of holes is : 1k, 10k, 5k, 25k, 30k, 40k, 
+Incoming process p3 of size 25k
+Process alloted a hole of size:25k
+New list of holes is : 1k, 10k, 5k, 30k, 40k, 
+Incoming process p4 of size 20k
+Process alloted a hole of size:30k
+New list of holes is : 1k, 10k, 5k, 10k, 40k, 
+>>>>>>>>>>>>>>>>>>>>>>MENU<<<<<<<<<<<<<<<<<<<<<<<<<<<		
+1.First Fit		
+2.Best Fit		
+3.Next Fit		
+4.Worst Fit		
+5.Exit		
+Enter choice(1-4):4
+
+Incoming process p1 of size 12k
+Process alloted a hole of size:40k
+New list of holes is : 15k, 10k, 5k, 25k, 30k, 28k, 
+Incoming process p2 of size 2k
+Process alloted a hole of size:30k
+New list of holes is : 15k, 10k, 5k, 25k, 28k, 28k, 
+Incoming process p3 of size 25k
+Process alloted a hole of size:28k
+New list of holes is : 15k, 10k, 5k, 25k, 3k, 28k, 
+Incoming process p4 of size 20k
+Process alloted a hole of size:28k
+New list of holes is : 15k, 10k, 5k, 25k, 3k, 8k, 
+>>>>>>>>>>>>>>>>>>>>>>MENU<<<<<<<<<<<<<<<<<<<<<<<<<<<		
+1.First Fit		
+2.Best Fit		
+3.Next Fit		
+4.Worst Fit		
+5.Exit		
+Enter choice(1-4):
+

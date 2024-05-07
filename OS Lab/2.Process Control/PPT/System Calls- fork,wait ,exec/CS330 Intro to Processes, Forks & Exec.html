@@ -1,0 +1,470 @@
+
+<!-- saved from url=(0060)http://www.cs.uregina.ca/Links/class-info/330/Fork/fork.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>CS330 Intro to Processes, Forks &amp; Exec</title>
+<link rel="STYLESHEET" href="./CS330 Intro to Processes, Forks & Exec_files/lab.css" type="TEXT/CSS">
+</head>
+
+<body>
+<h1 align="center">CS330 Intro to Processes, Forks &amp; Exec</h1>
+<hr>
+<h2>Highlights of this lab:</h2>
+<ul>
+  <li><a href="http://www.cs.uregina.ca/Links/class-info/330/Fork/fork.html#Preamble">Preamble</a></li>
+  <li><a href="http://www.cs.uregina.ca/Links/class-info/330/Fork/fork.html#Shell">Shell Commands for Process Control</a> </li>
+  <li><a href="http://www.cs.uregina.ca/Links/class-info/330/Fork/fork.html#System">System Calls for Process Control</a></li>
+  <li><a href="http://www.cs.uregina.ca/Links/class-info/330/Fork/fork.html#References">References</a> </li>
+</ul>
+<hr>
+<h2><a name="Preamble"></a>Preamble</h2>
+<p>The following is taken from page 1 of <em>Interprocess Communications in Unix</em>:</p>
+<blockquote>
+  <p><em>Fundamental to all operating systems is the concept of a process. While somewhat abstract, a process consists of an executing (running) program, its current values, state information, and the resources used by the operating system to manage the execution of the process. A process is a dynamic entity. In a UNIX-based operating system, at any given point in time, multiple processes appear to be executing concurrently. From the viewpoint of each of the processes involved it appears they have access to, and control of, all system resources as if they were in their own stand-alone setting. Both viewpoints are an illusion. The majority of UNIX operating systems run on platforms that have a single processing unit capable of supporting many active processes. However, at any point in time only one process is actually being worked upon. By rapidly changing the process it is currently executing, the UNIX operating system gives the appearance of concurrent process execution. The ability of the operating system to multiplex its resources among multiple processes in various stages of execution is called multiprogramming (or multitasking). Systems with multiple processing units, which by definition can support true concurrent processing are called multiprocessing.</em></p>
+</blockquote>
+<p>With the exception of some initial processes, all processes in UNIX are created by the fork system call. The initiating process is termed the parent and the newly generated process the child.</p>
+<p>In fact, our shell is constantly forking processes.</p>
+<p>The following is taken from <a href="http://www.tldp.org/HOWTO/Unix-and-Internet-Fundamentals-HOWTO/running-programs.html">http://www.tldp.org/HOWTO/Unix-and-Internet-Fundamentals-HOWTO/running-programs.html</a></p>
+<blockquote>
+  <p><em>The shell is just a user process, and not a particularly special one. It waits on your keystrokes, listening (through the kernel) to the keyboard I/O port. As the kernel sees them, it echoes them to your screen. When the kernel sees an ‘Enter’ it passes your line of text to the shell. The shell tries to interpret those keystrokes as commands. </em></p>
+  <p><em> Let's say you type ‘ls’ and Enter to invoke the Unix directory lister. The shell applies its built-in rules to figure out that you want to run the executable command in the file /bin/ls. It makes a system call asking the kernel to start /bin/ls as a new child process and give it access to the screen and keyboard through the kernel. Then the shell goes to sleep, waiting for ls to finish. </em></p>
+  <p><em> When /bin/ls is done, it tells the kernel it's finished by issuing an exit system call. The kernel then wakes up the shell and tells it it can continue running. The shell issues another prompt and waits for another line of input.</em></p>
+  <p><em>Other things may be going on while your ‘ls’ is executing, however (we'll have to suppose that you're listing a very long directory). You might switch to another virtual console, log in there, and start a game of Quake, for example. Or, suppose you're hooked up to the Internet. Your machine might be sending or receiving mail while /bin/ls runs. </em></p>
+</blockquote>
+<hr>
+<h2><a name="Shell"></a>Shell Commands for Process Control </h2>
+<p>The following table summarizes some shell commands for process control</p>
+<table border="1">
+<tbody><tr>
+   <td width="119"><b>Command</b></td>
+   <td width="431"><b>Descriptions</b></td>
+</tr> 
+
+<tr>
+   <td><b>&amp; </b></td>  
+   <td>When placed at the end of a command, execute that command in
+       the background.</td>
+</tr>
+
+<tr>
+   <td><b>CTRL + "Z"  </b></td>  
+   <td>Interrupt and stop the currently running process program. The program remains stopped and waiting in the background for you to resume it. </td>
+</tr>
+
+<tr>
+   <td><b>fg %jobnum </b></td>  
+   <td>Bring a command in the background to the foreground or resume
+       an interrupted program.<br>If the job number is omitted, the
+       most recently interrupted or backgrounded job is put in the
+       foreground.</td>
+</tr>
+
+<tr>
+   <td><b>bg %jobnum </b></td>  
+   <td>Place an interrupted command into the background. <br> If the
+       job number is omitted, the most recently interrupted job is put
+       in the background. </td>
+</tr>
+
+<tr>
+   <td><b>kill %jobnum<br>kill processID </b></td>  
+   <td>Cancel and quit a job running in the background </td>
+</tr>
+<tr>
+   <td><b>jobs </b></td>  
+   <td>List all background jobs. The jobs command is not available in the Bourne shell, unless it is using the jsh shell </td>
+</tr>
+<tr>
+   <td><b>ps </b></td>  
+   <td>list all currently running processes including background jobs </td>
+   
+</tr>
+<tr>
+   <td><b>at time date </b></td>  
+   <td>Execute commands at a specified time and date. The time can be entered with hours and minutes and qualified with AM or PM </td>
+</tr>
+</tbody></table>
+
+<p>Examples of usage might be the following:  </p>
+<p><var>%emacs &amp;</var> (to run emacs in the background)</p>
+<p><var>%ps -f </var>( to list all the processes related to you on that particular terminal with: UID,PID,PPID,C, STIME,TTY,TIME,CMD)</p>
+<p><var>%ps -ef</var> (to list all the processes running on the machine with the information given above)</p>
+<p><var>%ps -fu username</var> (to list all the processes running on the machine for the specified user)</p>
+<p><var>%vi myfile</var></p>
+<p><var>CTRL -Z</var> (to suspend vi)</p>
+<p><var>%jobs </var>(to list the jobs including the suspend vi. The output follows)	<br>
+  <var>[1] + Suspended vim myfile </var></p>
+<p><var>%fg %1</var> (to put vi back in the foreground) </p>
+<p>Instead, you could say</p>
+<p><var>%kill %1</var> (to kill the vi process) </p>
+<hr>
+<h2><a name="System"></a>System Calls for Process Control</h2>
+<p>The main system calls that will be needed for this lab are:</p>
+<ul>
+  <li><a href="http://www.cs.uregina.ca/Links/class-info/330/Fork/fork.html#fork">fork()</a></li>
+  <li><a href="http://www.cs.uregina.ca/Links/class-info/330/Fork/fork.html#exec">execl(), execlp(), execv(), execvp()</a></li>
+  <li><a href="http://www.cs.uregina.ca/Links/class-info/330/Fork/fork.html#wait">wait()</a> </li>
+  <li><a href="http://www.cs.uregina.ca/Links/class-info/330/Fork/fork.html#getpid">getpid(), getppid()</a></li>
+  <li><a href="http://www.cs.uregina.ca/Links/class-info/330/Fork/fork.html#getpgrp">getpgrp()</a></li>
+</ul>
+<p>Each of these will be covered in their own subsection</p>
+<hr width="50%" align="left">
+<h3><u><a name="fork"></a>fork():</u></h3>
+<pre>    #include &lt;sys/types.h&gt;
+    #include &lt;unistd.h&gt;
+    pid_t fork(void);</pre>
+
+<p>Notes:</p>
+<p>The <var>fork</var> system call does not take an argument. </p>
+<p>The process that invokes the <var>fork()</var> is known as the <strong>parent</strong> and the new process is called the <strong>child</strong>  </p>
+<p>If the <var>fork</var> system call fails, it will return a -1.</p>
+<p>If the fork system call is successful, the process ID of the child process is returned in the parent process and a 0 is returned in the child process. </p>
+<p>When a fork() system call is made, the operating system generates a copy of the parent process which becomes the child process.</p>
+<p>The operating system will pass to the child process most of the parent's process information.<br>
+  However, some information is unique to the child process:
+</p>
+<ul>
+  <ul>
+    <li>The child has its own process ID (PID)        </li>
+    <li>The child will have a different PPID than its parent          </li>
+    <li>System imposed process limits are reset to zero          </li>
+    <li>All recorded locks on files are reset        </li>
+    <li>The action to be taken when receiving signals is different </li>
+  </ul>
+</ul>
+<p><b>The following is a simple example of fork()</b></p>
+<pre>#include &lt;stdio.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;unistd.h&gt;
+
+int main(void)
+{
+   printf("Hello \n");
+   fork();
+   printf("bye\n");
+   return 0;
+}
+</pre>
+<p>Hello - is printed once by parent process<br>
+  bye - is printed twice, once by the parent and once by the child<br>
+  <br>
+  If the <var>fork</var> system call is successful a child process is produced that continues execution at the point where it was called by the parent process.<br>
+  <br>
+  After the <var>fork</var> system call, both the parent and child processes are running and continue their execution at the next statement in the parent process.<br>
+  <br> 
+  A summary of fork() return values follows:</p>
+<ul>
+  <li><var>fork_return &gt; 0</var>: this is the parent</li>
+  <li><var>fork_return == 0</var>: this is the child </li>
+  <li><var>fork_return == -1</var>: fork() failed and there is no child. See code
+      below to see how to check errors.</li>
+
+</ul>
+<p><br>
+  <b> Example of multiple activities PARENT AND CHILD processes</b></p>
+<pre>#include &lt;stdio.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;string.h&gt;
+
+#define BUFLEN 10
+
+int main(void)
+{
+   int i;
+   char  buffer[BUFLEN+1];
+   pid_t fork_return;
+
+   fork_return  = fork( ); 
+
+   if (fork_return == 0)
+   {
+      strncpy(buffer, "CHILD\n", BUFLEN); /*in the child process*/
+      buffer[BUFLEN] = '\0';
+   }
+   else if(fork_return &gt; 0)
+   {
+      strncpy(buffer, "PARENT\n", BUFLEN); /*in the parent process*/
+      buffer[BUFLEN] = '\0';
+   }
+   else if(fork_return == -1)
+   {
+      printf("ERROR:\n");
+      switch (errno)
+      {
+         case EAGAIN:
+	    printf("Cannot fork process: System Process Limit Reached\n");
+	 case ENOMEM:
+	    printf("Cannot fork process: Out of memory\n");
+      }
+      return 1;
+   }
+
+   for (i=0; i&lt;5; ++i) /*both processes do this*/
+   {
+      sleep(1); /*5 times each*/
+      write(1, buffer, strlen(buffer));
+   }
+
+   return 0;
+}
+</pre> 
+
+<p>A few notes on this program:</p>
+<ul>
+  <li>The function call <var>sleep</var> will result in a process "sleeping" a specified number of seconds. It can be used to prevent the process from running to completion within one time slice.</li>
+  <li>One process will always end before the other. If there is enough intervening time before the second process ends, the system call will redisplay the prompt, producing the last line of output where the output from the child process is appended to the end of the prompt (ie. %child)
+  </li>
+</ul>
+<p>A few additional notes about <var>fork()</var>:</p>
+ <ul>
+   <li>an orphan is a child process that continues
+    to execute after its parent has finished
+   execution (or died)</li>
+   <li> to avoid this problem, the parent should
+      execute: <var>wait(&amp;return_code);</var>
+    
+
+      
+  </li>
+ </ul>
+ <hr width="50%" align="left">
+<h3><u><a name="wait"></a>wait()</u></h3>
+<pre>    #include &lt;sys/types.h&gt;
+    #include &lt;sys/wait.h&gt;
+
+    pid_t wait(int *status);</pre>
+<p>A parent process usually needs to synchronize its actions by waiting until the child process has either stopped or terminated its actions.<br>
+  <br>
+The <var>wait()</var> system call allows the parent process to suspend its activities until one of these actions has occurred.<br>
+<br>
+The <var>wait()</var> system call accepts a single argument, which is a pointer to an integer and returns a value defined as type pid_t.<br>
+<br>
+If the calling process does not have any child associated with it, wait will return immediately with a value of -1.<br>
+<br>
+If any child processes are still active, the calling process will suspend its activity until a child process terminates.<br>
+(see the programs in <em>Interprocess Communication in Unix</em> pg 73 and 74)<br>
+
+
+</p>
+<p><strong>Example of wait()</strong></p>
+<pre>int status; 
+pid_t fork_return; 
+
+fork_return = fork(); 
+
+if (fork_return == 0) /* child process */ 
+{ 
+  printf("\n I'm the child!"); 
+  exit(0); 
+} 
+else /* parent process */ 
+{ 
+  wait(&amp;status); 
+  printf("\n I'm the parent!"); 
+  if (WIFEXITED(status))
+      printf("\n Child returned: %d\n", WEXITSTATUS(status));
+} 
+</pre>
+<p>A few notes on this program:</p>
+<ul>
+  <li> <var>wait(&amp;status)</var> causes the parent to sleep
+      until the child process is finished execution </li>
+  <li>details of how the child stopped are returned via the status variable
+        to the parent. Several macros are available to interpret the information. Two useful ones are:
+  <ul>
+     <li><var>WIFEXITED</var> evaluates as true, or 0, if the process ended normally with an exit or return call.
+     </li><li><var>WEXITSTATUS</var> if a process ended normally you can get the value that was returned with this macro.
+  </li></ul>
+  Consult a man file for more.
+  </li>
+</ul>
+<hr width="50%" align="left">
+<h3><u><a name="exec"></a>exec*()</u></h3>
+<pre>    #include &lt;unistd.h&gt;
+
+    extern char **environ;
+
+    int execl(const char *path, const char *arg, ...);
+    int execlp(const char *file, const char *arg, ...);
+    int execle(const  char  *path,  const  char  *arg  , ..., char * const envp[]);
+    int execv(const char *path, char *const argv[]);
+    int execvp(const char *file, char *const argv[]);</pre>
+
+<p>"The exec family of functions replaces the current process
+image with a new process image." (man pages) </p>
+
+<p>Commonly a process generates a child process because it would like
+to transform the child process by changing the program code the child
+process is executing.</p>
+
+<p>The text, data and stack segment of the process are replaced and
+only the <b>u</b> (user) area of the process remains the same.</p>
+
+<p>If successful, the <b><var>exec</var></b> system calls do not
+return to the invoking program as the calling image is lost.</p>
+
+<p>It is possible for a user at the command line to issue an exec
+system call, but it takes over the current shell and terminates the
+shell.</p>
+
+<pre>% exec  command  [arguments]
+</pre>
+
+<p><strong>The versions of exec are: </strong></p>
+<ul>
+  <li>execl  </li>
+  <li>execv  </li>
+  <li>execle
+  </li>
+  <li>execve
+  </li>
+  <li>execlp</li>
+  <li>execvp </li>
+</ul>
+<p><strong>The naming convention</strong>: exec* </p>
+<ul><li> 'l' indicates a list arrangement (a series of null terminated arguments)</li>
+  <li>'v' indicate the array or vector arrangement (like the argv structure).</li>
+  <li>'e' indicates the programmer will construct (in the array/vector format) and pass their own environment variable list </li>
+  <li> 'p' indicates the current PATH string should be used when the system searches for executable files.</li>
+  <p>NOTE:</p>
+  <li>In the four system calls where the PATH string is not used (execl, execv, execle, and execve) the path to the program to be executed must be fully specified.<br>
+                </li>
+</ul>
+<p><strong>exec system call functionality</strong></p>
+<table border="1" cellspacing="1" cellpadding="1">
+
+<tbody><tr>
+<td><b>Library Call Name</b></td>
+<td><b>Argument List</b></td>
+<td><b>Pass Current Environment Variables</b></td>
+<td><b>Search PATH automatic?</b></td>
+</tr>
+
+<tr>
+<td>execl</td>
+<td>list</td>
+<td>yes</td>
+<td>no</td>
+</tr>
+
+<tr>
+<td>execv </td>
+<td>array </td>
+<td>yes </td>
+<td>no </td>
+</tr>
+
+<tr>
+<td>execle </td>
+<td>list </td>
+<td>no </td>
+<td>no </td>
+</tr>
+
+<tr>
+<td>execve</td>
+<td>array</td>
+<td>no </td>
+<td>no </td>
+</tr>
+
+<tr>
+<td>execlp  </td>
+<td>list </td>
+<td>yes </td>
+<td>yes </td>
+</tr>
+
+<tr>
+<td>execvp </td>
+<td>array</td>
+<td>yes </td>
+<td>yes </td>
+</tr>
+
+</tbody></table>
+<p><br>
+  <b>execlp</b>
+</p><ul>
+  <li>
+  this system call is used when the number of arguments to be passed to the program to be executed is known in advance</li>
+</ul>
+<p><b>execvp</b>
+</p>
+<ul>
+  <li>this system call is used when the numbers of arguments for the program to be executed is dynamic<br>
+  </li>
+</ul>
+<pre>/* using execvp to execute the contents of argv */
+#include &lt;stdio.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(int argc, char *argv[])
+{
+   execvp(argv[1], &amp;argv[1]);
+   perror("exec failure");
+   exit(1);
+}
+</pre>
+
+<p><strong>Things to remember about exec*: </strong></p>
+
+<ul>
+  <li> this system call simply replaces the current
+    process with a new program -- the pid
+     does not change </li>
+  <li>the exec() is issued by the calling process
+    and what is exec'ed is referred to as the
+    new program
+    -- not the new process since no new process is created </li>
+  <li> it is important to realize that control is
+    not passed back to the calling process
+    unless an error
+    occurred with the exec() call</li>
+  <li> in the case of an error, the exec() returns
+      a value back to the calling process </li>
+  <li> if no error occurs, the calling process is
+    lost </li>
+</ul>
+<p><strong>A few more Examples of valid exec commands: </strong>
+</p><pre>execl("/bin/date","",NULL); // since the second argument is the program name,
+                            // it may be null  
+
+execl("/bin/date","date",NULL); 
+
+execlp("date","date", NULL); //uses the PATH to find date, try: %echo $PATH</pre>
+ <hr width="50%" align="left">
+ <h3><u><a name="getpid"></a>getpid()
+ </u> </h3>
+ <pre>    #include &lt;sys/types.h&gt;
+    #include &lt;unistd.h&gt;
+
+    pid_t getpid(void);
+    pid_t getppid(void);</pre>
+	<p><var>getpid()</var> returns the process id of the current process. The process ID is a unique positive integer identification number given to the process when it begins executing. </p>
+	<p> <var>getppid()</var> returns the process id of the parent of the current process. The parent process forked the current child process. </p>
+
+    <hr width="50%" align="left">
+    <h3><u><a name="getpgrp"></a>getpgrp()</u></h3>
+	<pre>    #include &lt;unistd.h&gt;
+	
+    pid_t getpgrp(void);</pre>
+<p>Every process belongs to a process group that is identified by an integer process group ID value.</p>
+    <p>When a process generates a child process, the operating system will automatically create a process group.</p>
+    <p>The initial parent process is known as the process leader.</p>
+    <p><var>getpgrp()</var> will obtain the process group id. </p>
+    <hr>
+    <h2><a name="References"></a>References</h2>
+    <ul>
+      <li>What happens when you run programs from the shell? from: <a href="http://www.tldp.org/HOWTO/Unix-and-Internet-Fundamentals-HOWTO/running-programs.html">http://www.tldp.org/HOWTO/Unix-and-Internet-Fundamentals-HOWTO/running-programs.html</a></li>
+      <li><em>Interprocess Communications in Unix--The Nooks and Crannies</em> by John Shapley Gray (pages 15 to 24 and Chapter 3) </li>
+      <li>man pages </li>
+    </ul>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+
+
+</body></html>

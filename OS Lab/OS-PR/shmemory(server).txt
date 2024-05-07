@@ -1,0 +1,43 @@
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<sys/stat.h>
+#include<unistd.h>
+#include<errno.h>
+#include<sys/ipc.h>
+#include<sys/shm.h>
+#define MAXSIZE 30
+void die(char *s)
+{
+	perror(s);
+	exit(1);
+}
+ 
+int main()
+{
+    	char c;
+    	int shmid;
+    	key_t key;
+    	char *shm, *s;
+    	key = 5678;
+ 
+    	if ((shmid = shmget(key, MAXSIZE, IPC_CREAT | 0666)) < 0)
+       		die("shmget");
+ 
+    	if ((shm = shmat(shmid, NULL, 0)) == (char *) -1)
+    	    	die("shmat");
+
+	printf("\nSerever...");
+	printf("\nshmid= %d",shmid);
+    	s = shm;
+ 
+    	for (c = 'A'; c <= 'Z'; c++)
+        *s++ = c;
+        while (*shm != '*')
+        sleep(1);
+ 	if (shmdt(shm)==0)
+		printf("\nserver is detach successfully...");
+	exit(0);
+}
+
+

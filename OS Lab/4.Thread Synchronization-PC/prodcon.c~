@@ -1,0 +1,116 @@
+
+/*Title: Semaphore for implementing Producer-Consumer system */
+
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<pthread.h>
+#include<semaphore.h>
+#define SIZE 5
+
+int buff[20],index1;
+pthread_mutex_t lock;
+sem_t full,empty;
+pthread_t tidp[10],tidc[10];
+
+void addval(int item)
+{
+	int a=item;
+
+	if(index1<SIZE)
+	{
+		buff[index1++]=a;
+		printf("Produced item: %d\n",a);
+	}
+	else
+	{
+		printf("\nBuffer is full\n");
+	}
+}
+
+void rmval()
+{
+	if(index1>0)
+	{
+		index1--;
+		printf("Consumed Item: %d\n",buff[index1]);
+	}
+	else
+	{
+		printf("\nBuffer is empty\n");
+	}
+}
+
+void *produce(void *args)
+{
+	int item;
+
+	item=rand()%100;
+
+	sem_wait(&empty);
+
+	pthread_mutex_lock(&lock);
+
+	addval(item);
+
+	pthread_mutex_unlock(&lock);
+
+	sem_post(&full);
+}
+
+void *consume(void *args)
+{
+	pthread_mutex_lock(&lock);
+
+	rmval();
+
+	pthread_mutex_unlock(&lock);
+
+	sem_post(&empty);
+}
+
+int main()
+{
+	int i;
+	sem_init(&full,1,0);
+	sem_init(&empty,1,SIZE);
+	index1=0;
+
+	pthread_mutex_init(&lock,NULL);
+
+	for(i=0;i<SIZE;i++)
+	{
+		pthread_create(&tidp[i],NULL,&produce,NULL);
+	}
+
+	for(i=0;i<SIZE;i++)
+	{
+		pthread_join(tidp[i],NULL);
+	}
+
+	for(i=0;i<SIZE;i++)
+	{
+		pthread_create(&tidc[i],NULL,&consume,NULL);
+	}
+
+	for(i=0;i<SIZE;i++)
+	{
+		pthread_join(tidc[i],NULL);
+	}
+}
+
+
+/* amol@amol-Aspire-5742:~$ gcc prodcon.c -lpthread
+amol@amol-Aspire-5742:~$ ./a.out
+Produced item: 83
+Produced item: 93
+Produced item: 77
+Produced item: 15
+Produced item: 86
+Consumed Item: 86
+Consumed Item: 15
+Consumed Item: 77
+Consumed Item: 93
+Consumed Item: 83
+amol@amol-Aspire-5742:~$ 
+*/

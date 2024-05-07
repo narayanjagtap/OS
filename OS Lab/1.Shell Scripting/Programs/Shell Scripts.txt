@@ -1,0 +1,1047 @@
+
+Shell Script to generate Fibonacci series#!/bin/bash
+echo "how many Fibonacci numbers do u want "
+read limit
+a=0
+b=1
+d=1
+echo "-------------------------------------------------------------"
+echo -n $a
+echo -n " "
+while test $d -le $limitÿ
+do
+c=`expr ${a} + ${b}`
+echo -n $c
+echo -n " "
+b=$a
+a=$c
+d=`expr $d + 1`
+done
+
+
+
+
+
+
+Shell script to reverse a given string and show it.#!/bin/bash
+
+echo -n "enter the string u want to reverse:-"
+read string
+len=`echo -n $string |wc -c`
+echo "no of character is:- $len"
+while test $len -gt 0
+do
+rev=$rev`echo $string |cut -c $len`
+len=`expr $len - 1`
+done
+echo "the reverse string is:-$rev "
+
+
+
+Write a shell program to check whether a given string is palindrome or not.
+
+echo "Enter a string to be entered:"
+read str
+echo
+len = `echo $str | wc -c`
+len = `expr $len - 1`
+i = 1
+j = `expr $len / 2`
+while test $i -le $j
+do
+k = `echo $str | cut -c $i`
+l =  `echo $str | cut -c $len`
+if test $k != $l
+then
+echo "String is not palindrome"			
+exit		
+fi
+i = `expr $i + 1`
+len = `expr $len - 1`	done
+echo "String is palindrome"
+
+Write a shell program to find factorial of given number
+
+echo ?Enter a number?
+read n		fact = 1		i = 1
+while [ $i -le $n ]
+do
+fact = `expr $fact \* $i`
+i = `expr $i + 1`		done
+echo ?Factorial of $n is $fact?
+
+
+
+
+echo "Can you see the following:"
+for (( i=1; i<=5; i++ ))
+do
+for (( j=1; j<=i; j++ ))
+do
+echo -n "$i"
+done
+echo ""
+done
+
+
+
+echo "Can you see the following:"
+for (( i=1; i<=5; i++ ))
+do
+for (( j=1; j<=i; j++ ))
+do
+echo -n "$j"			done
+echo ""			done
+
+echo "Climb the steps of success"
+for (( i=1; i<=5; i++ ))
+do
+for (( j=1; j<=i; j++ ))
+do
+echo -n " |"			done
+echo "_ "			done
+
+echo "Stars"
+for (( i=1; i<=5; i++ ))
+do
+for (( j=1; j<=i; j++ ))
+do
+echo -n " *"			done
+echo ""			done
+
+
+echo "Stars"
+for (( i=1; i<=5; i++ ))
+do
+for (( j=1; j<=i; j++ ))
+do
+echo -n " *"			done
+echo ""			done
+for (( i=5; i>=1; i-- ))
+do
+for (( j=1; j<=i; j++ ))
+do
+echo -n " *"			done
+echo ""			done
+
+
+echo "Hello, $LOGNAME"
+echo "Current date is `date`"
+echo "User is `who i am`"
+echo "Current directory `pwd`"
+
+Shell Script to find out biggest number
+
+# Algo:
+# 1) START: Take three nos as n1,n2,n3.
+# 2) Is n1 is greater than n2 and n3, if yes
+# print n1 is biggest no goto step 5, otherwise goto next step
+# 3) Is n2 is greater than n1 and n3, if yes
+# print n2 is biggest no goto step 5, otherwise goto next step
+# 4) Is n3 is greater than n1 and n2, if yes
+# print n3 is biggest no goto step 5, otherwise goto next step
+# 5) END
+#
+if [ $# -ne 3 ]
+then
+echo "$0: number1 number2 number3 are not given" >&2
+exit 1
+fi
+n1=$1	n2=$2	n3=$3
+if [ $n1 -gt $n2 ] && [ $n1 -gt $n3 ]
+then		echo "$n1 is Biggest number"
+elif [ $n2 -gt $n1 ] && [ $n2 -gt $n3 ]
+then		echo "$n2 is Biggest number"
+elif [ $n3 -gt $n1 ] && [ $n3 -gt $n2 ]
+then		echo "$n3 is Biggest number"
+elif [ $1 -eq $2 ] && [ $1 -eq $3 ] && [ $2 -eq $3 ]
+then
+echo "All the three numbers are equal"
+else
+echo "I can not figure out which number is bigger"
+fi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Script to reverse a given no
+# 1) Input number n		# 2) Set rev=0, sd=0
+# 3) Find single digit in sd as n % 10 it will give (left most digit)
+# 4) Construct reverse no as rev * 10 + sd	# 5) Decrement n by 1
+# 6) Is n is greater than zero, if yes goto step 3, otherwise next step
+# 7) Print rev
+
+if [ $# -ne 1 ]
+then
+echo "Usage: $0 number"
+echo " I will find reverse of given number"
+echo " For eg. $0 123, I will print 321"
+exit 1
+fi
+n=$1
+rev=0
+sd=0
+while [ $n -gt 0 ]
+do
+sd=`expr $n % 10`
+rev=`expr $rev \* 10 + $sd`
+n=`expr $n / 10`
+done
+echo "Reverse number is $rev"
+
+Algo:
+# 1) Input number n		# 2) Set sum=0, sd=0
+# 3) Find single digit in sd as n % 10 it will give (left most digit)
+# 4) Construct sum no as sum=sum+sd		# 5) Decrement n by 1
+# 6) Is n is greater than zero, if yes goto step 3, otherwise next step
+# 7) Print sum
+#
+if [ $# -ne 1 ]
+then		echo "Usage: $0 number"
+echo " I will find sum of all digit for given number"
+echo " For eg. $0 123, I will print 6 as sum of all digit (1+2+3)"
+exit 1		fi
+n=$1
+sum=0	sd=0
+while [ $n -gt 0 ]
+do
+sd=`expr $n % 10`
+sum=`expr $sum + $sd`
+n=`expr $n / 10`
+done
+echo "Sum of digit for number is $sum"
+
+
+shell script to find whether a particular year is a leap year or not#!/bin/bash
+#shell script to find whether a particular year is a leap year or not
+echo -n "Enter the year(yyyy) to find leap year :- "
+read year
+d=`expr $year % 4`
+b=`expr $year % 100`
+c=`expr $year % 400`ÿ
+if [ $d -eq 0 -a $b -ne 0 -o $c -eq 0 ]
+thenÿ
+echo "year is leap year"
+else
+echo "not leap year"
+fi
+
+shell script to print alternate digits when a 7 digit number is passed as input#!/bin/bash
+#shell script to print alternate digits when a 7 digit number is passed as input
+echo -n "Enter a 7 digit number:- "
+read number
+len=`echo $number | wc -c`
+flag=1
+while test $flag -le $len
+do
+echo $number | cut -c$flag
+flag=`expr $flag + 2`
+done
+shell script to find average of numbers given at command linetotal=0
+count=$#
+for i #or u can append ( in $*) to get same result.
+do
+total=`expr $total + $i`
+done
+avg1=`expr $total / $count`
+avg2=`expr $total % $count`
+avg2=`expr $avg2 \* 100 / $count`
+echo "The Average is :- $avg1.$avg2"
+
+
+Shell Script to find whether a given word is palindrome or not
+clear
+echo -n "enter the name :-"
+read name
+len=`echo -n $name | wc -c`
+echo "Length of the name is :-"$len
+while [ $len -gt 0 ]
+do
+rev=$rev`echo $name | cut -c$len`
+len=`expr $len - 1`
+done
+echo "Reverse of the name is :-"$rev
+if [ $name = $rev ]
+then echo "It is a palindrome"
+else
+echo "It is not a palindrome"
+fi
+
+Shell Script to reverse a given string and show it.#!/bin/bash
+#shell script to reverse a given string and show it.
+echo -n "enter the string u want to reverse:-"
+read string
+len=`echo -n $string |wc -c`
+echo "no of character is:- $len"
+while test $len -gt 0
+do
+rev=$rev`echo $string |cut -c $len`
+len=`expr $len - 1`
+done
+echo "the reverse string is:-$rev "Shell Script to count occurrence of a particular digit in inputted number.#!/bin/bash
+#shell script to count occurrence of a particular digit in inputted number.
+echo -n "enter any number:-"
+read number
+echo -n "which digit number do u want to count:-"
+read digit
+len=`echo -n $number |wc -c`
+echo "the length of number is:-$len"
+count=0
+while test $len -gt 0
+do
+flag=`echo -n $number |cut -c $len`
+if test $flag -eq $digit
+then
+count=`expr $count + 1`
+fi
+len=`expr $len - 1`
+done
+echo "|$digit| occurred |$count| times in number ($number)"Shell Script to find even or odd.#!/bin/bash
+#shell script to find even or odd.
+echo -n "enter any integer number to find even and odd :-"
+read number
+rem=`expr $number % 2`
+if test $rem -eq 0
+then
+echo "number is even"
+else 
+echo "number is odd"      fi
+1) Write a shell script to ask your name, program name and enrollment number and print it on the screen.
+
+echo ?Enter your name:?
+read Name
+echo ?Enter your program name:?
+read Prog
+echo ?Enter your enrollment number:?
+read Enroll
+clear
+echo ?Details you entered?
+echo Name: $Name
+echo Program Name: $Prog
+echo Enrolment Number: $Enroll
+
+2) Write a shell script to find the sum, the average and the product of the four integers entered
+
+Echo ?Enter four integers with space between?
+Read a b c d
+Sum =`expr $a + $b + $c + $d`
+Avg =`expr $sum / 4`
+Dec =`expr $sum % 4`
+Dec =`expr \ ($dec \* 1000 \) / 4`
+Product =`expr $a \* $b \* $c \* $d`
+Echo Sum = $sum
+Echo Average = $avg. $dec
+Echo Product = $product
+
+3) Write a shell program to exchange the values of two variables
+
+Echo ?Enter value for a:?
+Read a
+Echo ?Enter value for b:?
+Read b
+Clear
+Echo ?Values of variables before swapping?
+Echo A = $a
+Echo B = $b
+Echo Values of variables after swapping
+a = `expr $a + $b`
+b = `expr $a - $b`
+a = `expr $a - $b`
+Echo A = $a
+Echo B = $b
+
+4) Find the lines containing a number in a file
+
+Echo ?Enter filename?
+Read filename
+Grep [0-9] $filename
+
+5) Write a shell script to display the digits which are in odd position in a given 5 digit number 
+
+Echo ?Enter a 5 digit number?
+Read num
+n = 1
+while [ $n -le 5 ]
+do
+a = `Echo $num | cut -c $n`
+Echo $a 
+n = `expr $n + 2`
+done
+
+6) Write a shell program to reverse the digits of five digit integer
+Echo ?Enter a 5 digit number?
+Read num
+n = $num
+rev=0
+while [ $num -ne 0 ]
+do
+r = `expr $num % 10`
+rev = `expr $rev \* 10 + $r`
+num = `expr $num / 10`
+done
+Echo ?Reverse of $n is $rev?
+
+7) Write a shell script to find the largest among the 3 given numbers
+Echo ?Enter 3 numbers with spaces in between?
+Read a b c
+1 = $a
+if [ $b -gt $l ]
+then
+l = $b
+fi
+if [ $c -gt $l ]
+then
+l = $c
+fi
+Echo ?Largest of $a $b $c is $l?
+
+8) Write a shell program to search for a given number from the list of numbers provided using binary search method
+Echo ?Enter array limit?
+Read limit
+Echo ?Enter elements?
+n = 1
+while [ $n -le $limit ]
+do
+Read num
+eval arr$n = $num
+n = `expr $n + 1`
+done
+Echo ?Enter key element?
+Read key
+low = 1
+high = $n
+found = 0
+while [ $found -eq 0 -a $high -gt $low ]
+do
+mid = `expr \( $low + $high \) / 2`
+eval t = \$arr$mid
+if [ $key -eq $t ]
+then
+found = 1
+elif [ $key -lt $t ]
+then
+high = `expr $mid - 1`
+else
+low = `expr $mid + 1`
+fi
+done
+if [ $found -eq 0 ]
+then
+Echo ?Unsuccessful search?
+else
+Echo ?Successful search?
+fi
+
+
+
+
+
+
+
+9)  Write a shell program to concatenate two strings and find the length of the resultant string
+
+Echo ?Enter first string:?
+Read s1
+Echo ?Enter second string:?
+Read s2
+s3 = $s1$s2
+len = `Echo $s3 | wc -c`
+len = `expr $len - 1`
+Echo ?Concatenated string is $s3 of length $len ?
+
+10) Write a shell program to find the position of substring  in given string
+
+Echo ?Enter main string:?
+Read main
+l1 = `Echo $main | wc -c`
+l1 = `expr $l1 - 1`
+Echo ?Enter sub string:?
+Read sub
+l2 = `Echo $sub | wc -c`
+l2 = `expr $l2 - 1`
+n = 1
+m = 1
+pos = 0
+while [ $n -le $l1 ]
+do
+a = `Echo $main | cut -c $n`
+b = `Echo $sub | cut -c $m`
+if [ $a = $b ]
+then
+n = `expr $n + 1`
+m = `expr $m + 1`
+pos = `expr $n - $l2`
+r = `expr $m - 1`
+if [ $r -eq $l2 ]
+then
+break
+fi
+else
+pos = 0
+m = 1
+n = `expr $n + 1`
+fi
+done
+Echo ?Position of sub string in main string is $pos?
+
+11) Write a shell program to display the alternate digits in a given 7 digit number starting from the first digit 
+
+Echo ?Enter a 7 digit number?
+Read num
+n = 1
+while [ $n -le 7 ]
+do
+a = `Echo $num | cut -c $n`
+Echo $a 
+n = `expr $n + 2`
+done
+
+12) Write a shell program to find the gcd for the 2 given numbers
+
+Echo ?Enter two numbers with space in between?
+Read a b
+m = $a
+if [ $b -lt $m ]
+then
+m = $b
+fi
+while [ $m -ne 0 ]
+do
+x = `expr $a % $m`
+y = `expr $b % $m`
+if [ $x -eq 0 -a $y -eq 0 ]
+then
+Echo ?gcd of $a and $b is $m?
+break
+fi
+m = `expr $m - 1`
+done
+
+13) Write a shell program to check whether a given string is palindrome or not.
+
+Echo "Enter a string to be entered:"
+Read str
+Echo
+len = `Echo $str | wc -c`
+len = `expr $len - 1`
+i = 1
+j = `expr $len / 2`
+while test $i -le $j
+do
+k = `Echo $str | cut -c $i`
+l = `Echo $str | cut -c $len`
+if test $k != $l
+then
+Echo "String is not palindrome"
+exit
+fi
+i = `expr $i + 1`
+len = `expr $len - 1`
+done
+Echo "String is palindrome"
+
+14) Write a shell program to find the sum of the series sum=1+1/2+...+1/n
+
+Echo ?Enter a number?
+Read n
+i = 1
+sum = 0
+while [ $i -le $n ]
+do
+sum = `expr $sum + \ ( 10000 / $i \)`
+i = `expr $i + 1`
+done
+Echo ?Sum n series is?
+i = 1
+while [ $i -le 5 ]
+do
+a = `Echo $sum | cut -c $i`
+Echo -e "$a\c"
+if [ $i -eq 1 ]
+then
+Echo -e ".\c"
+fi
+i = `expr $i + 1`
+done
+
+15) Write a shell script to find the smallest of three numbers
+
+Echo ?Enter 3 numbers with spaces in between?
+Read a b c
+s = $a
+if [ $b -lt $s ]
+then		s = $b	fi
+if [ $c -lt $s ]
+then		s = $c	fi
+Echo ?Smallest of $a $b $c is $s?
+
+16) Write a shell program to add, subtract and multiply the 2 given numbers passed as command line arguments
+
+add = `expr $1 + $2`
+sub = `expr $1 - $2`
+mul = `expr $1 \* $2`
+Echo ?Addition of $1 and $2 is $add?
+Echo ?Subtraction of $2 from $1 is $sub?
+Echo ?Multiplication of $1 and $2 is $mul?
+
+17) Write a shell program to convert all the contents into the uppercase in a particular file
+
+Echo ?Enter the filename?
+Read filename
+Echo ?Contents of $filename before converting to uppercase?
+cat $filename 
+Echo ----------------------------------------------------
+Echo ?Contents of $filename after converting to uppercase?
+Echo ---------------------------------------------------
+tr '[a-z]' '[A-Z]' < $filename 
+
+18) Write a shell program to count the characters, count the lines and the words in a particular file
+
+Echo ?Enter the filename?
+Read file
+w = `cat $file | wc -w`
+c = `cat $file | wc -c`
+l = `grep -c "." $file`
+Echo ?Number of characters in $file is $c?
+Echo ?Number of words in $file is $w?
+Echo ?Number of lines in $file is $l?
+
+19) Write a shell program to concatenate the contents of  2 files
+
+Echo ?Enter first filename?
+Read first
+Echo ?Enter second filename?
+Read second
+cat $first > third
+cat $second >> third
+Echo ?After concatenation of contents of entered two files?
+cat third | more
+
+20) Write a shell program to count number of words, characters, white spaces and special symbols in a given text
+
+Echo ?Enter a text?
+Read text
+w = `Echo $text | wc -w`
+w = `expr $w`
+c = `Echo $text | wc -c`
+c = `expr $c - 1`
+s = 0
+alpha = 0
+j = ` ` 
+n = 1
+while [ $n -le $c ]
+do
+ch = `Echo $text | cut -c $n`
+if test $ch =  $j
+then
+s = `expr $s + 1`
+fi
+case $ch in
+a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z) alpha=`expr $alpha + 1`;;
+esac
+n = `expr $n + 1`
+done
+special = `expr $c - $s - $alpha`
+Echo ?Words = $w?
+Echo ?Characters = $c?
+Echo ?Spaces = $s?
+Echo ?Special symbols = $special?
+
+
+24) Write a shell program to find factorial of given number
+
+Echo ?Enter a number?
+Read n
+fact = 1
+i = 1
+while [ $i -le $n ]
+do
+fact = `expr $fact \* $i`
+i = `expr $i + 1`
+done
+Echo ?Factorial of $n is $fact?
+
+25) Write a shell script to find the average of the numbers entered in command line
+
+n = $#
+sum = 0
+for i in $*
+do
+sum = `expr $sum + $i`
+done
+avg = `expr $sum / $n`
+Echo ?Average=$avg?
+
+26) Write a shell script to sort the given numbers in descending order using Bubble sort
+
+Echo
+i = 1
+k = 1
+Echo "Enter no. of integers to be sorted"
+Read n
+Echo "Enter the numbers"
+while [ $i -le $n ]
+do
+Read num
+x[$k] = `expr $num`
+i = `expr $i + 1`
+k = `expr $k + 1`
+done
+x[$k] = 0
+k = 1
+Echo "The number you have entered are"
+while [ ${x[$k]} -ne 0 ]
+do
+Echo "${x[$k]}"
+k = `expr $k + 1`
+done
+k = 1
+while [ $k -le $n ]
+do
+j = 1
+while [ $j -lt $n ]
+do
+y = `expr $j + 1`
+if [ ${x[$j]} -gt ${x[$y]} ]
+then
+temp = `expr ${x[$j]}`
+x[$j] = `expr ${x[$y]}`
+x[$y] = `expr $temp`
+fi
+j = `expr $j + 1`
+done
+k = `expr $k + 1`
+done
+k = 1
+Echo "Number in sorted order..."
+while [ ${x[$k]} -ne 0 ]
+do 
+Echo "${x[$k]}"
+k = `expr $k + 1`
+done
+
+27) Write a shell program to find the sum of all the digits in a given 5 digit number
+Echo ?Enter a 5 digit number?
+Read num
+sum = 0
+while [  $num -ne 0 ]
+do
+r = `expr $num % 10`
+sum = `expr $sum + $r`
+num = `expr $num / 10`
+done
+Echo ?sum = $sum?
+
+28) Write a shell script to generate Fibonacci series
+
+Echo "how many Fibonacci numbers do u want "
+Read limit
+a = 0
+b = 1
+d = 1
+Echo -n $a
+Echo -n " "
+while test $d -le $limitÿ
+do
+c = `expr ${a} + ${b}`
+Echo -n $c
+Echo -n " "
+b = $a
+a = $c
+d = `expr $d + 1`
+done
+
+29) Shell Script to check whether given year is leap year or not  
+
+Echo -n "Enter the year (yyyy) to find leap year: - "
+Read year
+d = `expr $year % 4`
+b = `expr $year % 100`
+c = `expr $year % 400`ÿ
+if [ $d -eq 0 -a $b -ne 0 -o $c -eq 0 ]
+thenÿ
+Echo "year is leap year"
+else
+Echo "not leap year"
+fi
+
+30) Shell Script to print alternate digit when a 7 digit number is passed
+
+Echo -n "Enter a 7 digit number:- "
+Read number
+len = `echo $number | wc -c`
+flag = 1
+while test $flag -le $len
+do
+Echo $number | cut -c$flag
+flag = `expr $flag + 2`
+done
+
+31) Shell script to find average of number at given command line
+
+total = 0
+count = $#
+for i #or u can append ( in $*) to get same result.
+do
+total = `expr $total + $i`
+done
+avg1 = `expr $total / $count`
+avg2 = `expr $total % $count`
+avg2 = `expr $avg2 \* 100 / $count`
+Echo "The Average is :- $avg1.$avg2"
+
+32) Shell Script to reverse a inputted string and show it
+
+Echo -n "enter the string u want to reverse:-"
+Read string
+len = `Echo -n $string |wc -c`
+Echo "no of character is:- $len"
+while test $len -gt 0
+do
+rev = $rev`Echo $string |cut -c $len`
+len = `expr $len - 1`
+done
+Echo "the reverse string is:-$rev "
+
+33) Shell script to find occurrence of particular digit in inputted number
+
+Echo -n "enter any number:-"
+Read number
+Echo -n "which digit number do u want to count:-"
+Read digit
+len = `echo -n $number |wc -c`
+Echo "the length of number is:-$len"
+count = 0
+while test $len -gt 0
+do
+flag = `Echo -n $number |cut -c $len`
+if test $flag -eq $digit
+then
+count = `expr $count + 1`
+fi
+len = `expr $len - 1`
+done
+Echo "|$digit| occurred |$count| times in number ($number)"
+
+34) Shell Script to find whether number given is even or odd
+
+echo -n "enter any integer number to find even and odd:-"
+read number
+rem = `expr $number % 2`
+if test $rem -eq 0
+then
+Echo "number is even"
+else 
+Echo "number is odd"
+fi
+
+35) Write shell script to generate Fibonacci series
+ 
+echo "how many Fibonacci numbers do u want "
+read limit
+a=0
+b=1
+d=1
+echo "-------------------------------------------------------------"
+echo -n $a
+echo -n " "
+while test $d -le $limit 
+do
+c=`expr ${a} + ${b}`
+echo -n $c
+echo -n " "
+b=$a
+a=$c
+d=`expr $d + 1`
+done
+ 
+36) Shell script to find whether a particular year is a leap year or not
+ 
+echo -n "Enter the year(yyyy) to find leap year :- "
+read year
+d=`expr $year % 4`
+b=`expr $year % 100`
+c=`expr $year % 400` 
+if [ $d -eq 0 -a $b -ne 0 -o $c -eq 0 ]
+then 		echo "year is leap year"
+else		echo "not leap year"
+fi
+
+ 
+37) Script to print alternate digits when a 7 digit number is passed as input
+ 
+echo -n "Enter a 7 digit number:- "
+read number
+len=`echo $number | wc -c`
+flag=1
+while test $flag -le $len
+do
+echo $number | cut -c$flag
+flag=`expr $flag + 2`
+done
+ 
+38) Shell script to find average of numbers given at command line
+ 
+total=0
+count=$#
+for i #or u can append ( in $*) to get same result.
+do
+total=`expr $total + $i`
+done
+avg1=`expr $total / $count`
+avg2=`expr $total % $count`
+avg2=`expr $avg2 \* 100 / $count`
+echo "The Average is :- $avg1.$avg2"
+
+ 
+39) write shell script to find whether a given word is palindrome or not
+ 
+clear
+echo -n "enter the name :-"
+read name
+len=`echo -n $name | wc -c`
+echo "Length of the name is :-"$len
+while [ $len -gt 0 ]
+do
+rev=$rev`echo $name | cut -c$len`
+len=`expr $len - 1`
+done
+echo "Reverse of the name is :-"$rev
+if [ $name = $rev ]
+then echo "It is a palindrome"
+else
+echo "It is not a palindrome"
+fi
+
+ 
+40) write shell script to reverse a inputted string and show it.
+ 
+echo -n "enter the string u want to reverse:-"
+read string
+len=`echo -n $string |wc -c`
+echo "no of character is:- $len"
+while test $len -gt 0
+do
+rev=$rev`echo $string |cut -c $len`
+len=`expr $len - 1`
+done
+echo "the reverse string is:-$rev "
+ 
+
+41) Shell script to count occurrence of a particular digit in inputted number.
+ 
+echo -n "enter any number:-"
+read number
+echo -n "which digit number do u want to count:-"
+read digit
+len=`echo -n $number |wc -c`
+echo "the length of number is:-$len"
+count=0
+while test $len -gt 0
+do
+flag=`echo -n $number |cut -c $len`
+if test $flag -eq $digit
+then
+count=`expr $count + 1`
+fi
+len=`expr $len - 1`
+done
+echo "|$digit| occurred |$count| times in number ($number)"
+
+
+ 
+42) write shell script to find even or odd.
+echo -n "enter any integer number to find even and odd :-"
+read number
+rem=`expr $number % 2`
+if test $rem -eq 0
+then		echo "number is even"
+else 		echo "number is odd"
+fi
+ 
+43) Shell script sort given list of numbers using Bubble Sort 
+
+echo "Enter the number of numbers :"
+read limit
+count=1
+while [ $count -le $limit ]
+do
+eval read x$count
+count=`expr $count + 1`
+done
+i=1
+while [ $i -le $limit ]
+do
+eval xval = "\$x$i"
+j=`expr $i + 1`
+s1=`expr $limit -1`
+while [ $j -le $s1 ]
+do
+eval xval="\$x$j"
+k=`expr $j + 1`
+eval yval="\$x$k"
+if [ $xval -gt $yval ]
+then
+eval x$j ="$yval"
+eval x$k="$xval"
+fi
+j=`expr $j + 1`
+done
+i=`expr $i +1`
+done
+count =1
+echo " The sorted array is "
+while [ $count -le $limit ]
+do
+eval echo "\$x$count"
+count=`expr $count + 1`
+done
+
+44) Shell script to check whether a String is Palindrome or not? 
+
+1=0	cnt=1		tag=0
+echo "Enter a String?"
+read str
+1 =`echo $str |wc -c`
+1 =`expr $l - 1`
+1h=`expr $l / 2`
+while [ $cnt -le $lh ]
+do
+c1=`echo $str|cut -c$cnt`
+c2=`echo $str|cut -c$l`
+if [ $c1 != $c2 ]
+then
+cnt=$lh 	tag=1		fi
+cnt=`expr $cnt + 1`
+=`expr $l - 1`
+done
+if [ $tag -eq 0 ]
+then		echo "String is Palindrome"
+else		echo ?String is not Palindrome?		fi
+
+
+45)*/Palindrome */
+text=$@ 
+textLength=`echo $text | wc -c`
+ i=1 
+while [ $i -le $textLength ]
+do 
+x=`echo $text | cut -c$i`
+echo $x
+
+i=$(( $i + 1 )) 
+done
+
+

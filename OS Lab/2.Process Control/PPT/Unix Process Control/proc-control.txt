@@ -1,0 +1,57 @@
+ubuntu@ubuntu-HP-dx2480-MT-FH295PA:~$ gcc proc-control.c
+ubuntu@ubuntu-HP-dx2480-MT-FH295PA:~$ ./a.out
+
+ Enter the sentence for calculating number of vowels and words :amol gadewar pune
+
+	Enter the number of elements:5
+
+	 Enter the elements:
+
+	 Element 1 :12
+
+	 Element 2 :34
+
+	 Element 3 :11
+
+	 Element 4 :56
+
+	 Element 5 :3
+
+	 Original numbers are : 
+
+	 Array elements :
+	 element [1] : 12
+	 element [2] : 34
+	 element [3] : 11
+	 element [4] : 56
+	 element [5] : 3
+
+
+	 Entered String is :
+	amol gadewar pune
+
+
+	 This is child process:
+	 My process id is : 2145
+	 My Parent process id is : 2144
+
+	 The Numbers In Descending Order Are:
+	 56 34 12 11 3  
+	 Number of words in the given string is: 3
+
+	 Parent process resumed after the execution of child process with PID 2145
+	 My process id is : 2144
+	 My Parent process id is : 1913
+
+	The Numbers In Ascending Order Are:
+	 3 11 12 34 56 
+ Vowels Counting
+ Number of A  : 3
+ Number of E  : 2
+ Number of I  : 0
+ Number of O  : 1
+ Number of U  : 1
+ Total vowels : 7 
+	 Total number of vowels in the given string is: 7
+ubuntu@ubuntu-HP-dx2480-MT-FH295PA:~$ 
+

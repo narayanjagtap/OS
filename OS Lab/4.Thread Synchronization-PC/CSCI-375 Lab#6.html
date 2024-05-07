@@ -1,0 +1,657 @@
+
+<!-- saved from url=(0059)http://cse.stfx.ca/~mlin/cs375/labs/lab6synchronization.htm -->
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns:css="http://macVmlSchemaUri" xmlns="http://www.w3.org/TR/REC-html40"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="Title" content="CSCI-375 Lab#6">
+<meta name="Keywords" content="">
+
+<meta name="ProgId" content="Word.Document">
+<meta name="Generator" content="Microsoft Word 2008">
+<meta name="Originator" content="Microsoft Word 2008">
+<link rel="File-List" href="http://cse.stfx.ca/~mlin/cs375/labs/lab6synchronization_files/filelist.xml">
+<title>CSCI-375 Lab#6</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Iker Gondra</o:Author>
+  <o:Template>Normal</o:Template>
+  <o:LastAuthor>   </o:LastAuthor>
+  <o:Revision>11</o:Revision>
+  <o:TotalTime>115</o:TotalTime>
+  <o:Created>2012-02-03T16:17:00Z</o:Created>
+  <o:LastSaved>2012-02-09T21:40:00Z</o:LastSaved>
+  <o:Pages>2</o:Pages>
+  <o:Words>857</o:Words>
+  <o:Characters>4887</o:Characters>
+  <o:Company>Oklahoma State University</o:Company>
+  <o:Lines>40</o:Lines>
+  <o:Paragraphs>9</o:Paragraphs>
+  <o:CharactersWithSpaces>6001</o:CharactersWithSpaces>
+  <o:Version>12.0</o:Version>
+ </o:DocumentProperties>
+ <o:OfficeDocumentSettings>
+  <o:AllowPNG/>
+ </o:OfficeDocumentSettings>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>BestFit</w:Zoom>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:TrackMoves>false</w:TrackMoves>
+  <w:TrackFormatting/>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:Compatibility>
+   <w:SplitPgBreakAndParaMark/>
+   <w:UseFELayout/>
+  </w:Compatibility>
+ </w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" LatentStyleCount="276">
+ </w:LatentStyles>
+</xml><![endif]-->
+<style>
+<!--table.MSONORMALTABLE
+	{mso-bidi-language:"\#0400";}
+table.TABELANORMAL
+	{mso-bidi-language:"\#0400";}
+span.PLAINTEXTCHAR
+	{mso-bidi-font-size:10.5pt;
+	mso-style-locked:yes;}
+
+ /* Font Definitions */
+@font-face
+	{font-family:"Courier New";
+	panose-1:2 7 3 9 2 2 5 2 4 4;
+	mso-font-charset:0;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 0 0 0 1 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:minor-bidi;}
+p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
+	{mso-style-link:"Plain Text Char";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-ascii-font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";
+	mso-hansi-font-family:"Courier New";
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:minor-bidi;}
+p
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";}
+span.PlainTextChar
+	{mso-style-name:"Plain Text Char";
+	mso-style-locked:yes;
+	mso-style-link:"Plain Text";
+	mso-ansi-font-size:10.5pt;
+	font-family:Courier;
+	mso-ascii-font-family:Courier;
+	mso-fareast-font-family:"Times New Roman";
+	mso-hansi-font-family:Courier;}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
+@page Section1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;
+	mso-header-margin:36.0pt;
+	mso-footer-margin:36.0pt;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+@list l0
+	{mso-list-id:136462108;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1962020198 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l0:level1
+	{mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level2
+	{mso-level-tab-stop:72.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level3
+	{mso-level-tab-stop:108.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level4
+	{mso-level-tab-stop:144.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level5
+	{mso-level-tab-stop:180.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level6
+	{mso-level-tab-stop:216.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level7
+	{mso-level-tab-stop:252.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level8
+	{mso-level-tab-stop:288.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l0:level9
+	{mso-level-tab-stop:324.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1
+	{mso-list-id:486484377;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1486070900 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l1:level1
+	{mso-level-tab-stop:36.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level2
+	{mso-level-tab-stop:72.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level3
+	{mso-level-tab-stop:108.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level4
+	{mso-level-tab-stop:144.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level5
+	{mso-level-tab-stop:180.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level6
+	{mso-level-tab-stop:216.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level7
+	{mso-level-tab-stop:252.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level8
+	{mso-level-tab-stop:288.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+@list l1:level9
+	{mso-level-tab-stop:324.0pt;
+	mso-level-number-position:left;
+	text-indent:-18.0pt;}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+	mso-para-margin-top:0cm;
+	mso-para-margin-right:0cm;
+	mso-para-margin-bottom:10.0pt;
+	mso-para-margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:minor-latin;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:minor-latin;}
+table.Tabelanormal
+	{mso-style-name:"Tabela normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-parent:"";
+	mso-padding-alt:0cm 0cm 0cm 0cm;
+	mso-para-margin:0cm;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="1027"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body lang="EN-US" style="tab-interval:36.0pt">
+
+<div class="Section1">
+
+<p class="MsoNormal" align="center" style="text-align:center"><b style="mso-bidi-font-weight:
+normal"><span style="font-size:16.0pt;font-family:&quot;Courier New&quot;;mso-fareast-font-family:
+&quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast;mso-bidi-font-family:
+&quot;Courier New&quot;">CS375 Lab 6: Synchronization<o:p></o:p></span></b></p>
+
+<p class="MsoNormal"><b style="mso-bidi-font-weight:normal"><span style="font-family:&quot;Courier New&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;"><o:p>&nbsp;</o:p></span></b></p>
+
+<p class="MsoNormal"><b style="mso-bidi-font-weight:normal"><span style="font-size:14.0pt;font-family:&quot;Courier New&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;">Objectives</span></b><b style="mso-bidi-font-weight:normal"><span style="font-family:&quot;Courier New&quot;;
+mso-bidi-font-family:&quot;Times New Roman&quot;">: <o:p></o:p></span></b></p>
+
+<p class="MsoNormal"><b style="mso-bidi-font-weight:normal"><span style="font-family:&quot;Courier New&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;"><o:p>&nbsp;</o:p></span></b></p>
+
+<p class="MsoNormal"><b style="mso-bidi-font-weight:normal"><span style="font-family:&quot;Courier New&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;">POXIS
+thread, Semaphores, Producer/Consumer Problem<o:p></o:p></span></b></p>
+
+<p class="MsoNormal"><b style="mso-bidi-font-weight:normal"><span style="font-family:&quot;Courier New&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;"><o:p>&nbsp;</o:p></span></b></p>
+
+<p class="MsoNormal"><b style="mso-bidi-font-weight:normal"><span style="font-size:14.0pt;font-family:&quot;Courier New&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;">Descriptions:<o:p></o:p></span></b></p>
+
+<p class="MsoNormal"><b style="mso-bidi-font-weight:normal"><span style="font-family:&quot;Courier New&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;"><o:p>&nbsp;</o:p></span></b></p>
+
+<p class="MsoNormal"><b style="mso-bidi-font-weight:normal"><span style="font-family:&quot;Courier New&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;"><span style="mso-spacerun: yes">&nbsp;</span><o:p></o:p></span></b></p>
+
+<p><u>Note</u>: The following (with modifications) is adapted from <span class="SpellE">Silberschatz</span> (our course textbook), �Project:
+Producer-Consumer Problem�.</p>
+
+<p><o:p>&nbsp;</o:p></p>
+
+<p><o:p>&nbsp;</o:p></p>
+
+<p><o:p>&nbsp;</o:p></p>
+
+<p>The code below illustrates how a semaphore is created:</p>
+
+<p><span style="font-family:&quot;Courier New&quot;">#include &lt;<span class="SpellE">semaphore.h</span>&gt;<o:p></o:p></span></p>
+
+<p><span class="SpellE"><span class="GramE"><span style="font-family:&quot;Courier New&quot;">sem</span></span><span style="font-family:&quot;Courier New&quot;">_t</span></span><span style="font-family:
+&quot;Courier New&quot;"> <span class="SpellE">sem</span>;<o:p></o:p></span></p>
+
+<p><span style="font-family:&quot;Courier New&quot;"><o:p>&nbsp;</o:p></span></p>
+
+<p><span style="font-family:&quot;Courier New&quot;">// Create the semaphore and
+initialize it to 5<o:p></o:p></span></p>
+
+<p><span class="SpellE"><span class="GramE"><span style="font-family:&quot;Courier New&quot;">sem</span></span><span style="font-family:&quot;Courier New&quot;">_init</span></span><span style="font-family:
+&quot;Courier New&quot;">(&amp;<span class="SpellE">sem</span>, 0, 5);<o:p></o:p></span></p>
+
+<p><span style="font-family:&quot;Courier New&quot;"><o:p>&nbsp;</o:p></span></p>
+
+<p>The <span class="SpellE"><span style="font-family:&quot;Courier New&quot;">sem_<span class="GramE">init</span></span></span><span class="GramE"><span style="font-family:
+&quot;Courier New&quot;">(</span></span><span style="font-family:&quot;Courier New&quot;">)</span>
+creates and initializes a semaphore. This function is passed three parameters:</p>
+
+<p><o:p>&nbsp;</o:p></p>
+
+<p style="margin-left:36.0pt;text-indent:-18.0pt;mso-list:l0 level1 lfo2;
+tab-stops:list 36.0pt"><!--[if !supportLists]--><span style="mso-list:Ignore">1.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span></span><!--[endif]-->A
+pointer to the semaphore</p>
+
+<p style="margin-left:36.0pt;text-indent:-18.0pt;mso-list:l0 level1 lfo2;
+tab-stops:list 36.0pt"><!--[if !supportLists]--><span style="mso-list:Ignore">2.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span></span><!--[endif]-->A
+flag indicating the level of sharing</p>
+
+<p style="margin-left:36.0pt;text-indent:-18.0pt;mso-list:l0 level1 lfo2;
+tab-stops:list 36.0pt"><!--[if !supportLists]--><span style="mso-list:Ignore">3.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span></span><!--[endif]-->The
+semaphore�s initial value</p>
+
+<p><o:p>&nbsp;</o:p></p>
+
+<p>In this example, by passing the flag 0, we are indicating that this
+semaphore can only be shared by threads belonging to the same process that
+created the semaphore. A nonzero value would allow other processes to access
+the semaphore as well. <span class="SpellE">Pthreads</span> names the <span class="GramE"><span style="font-family:&quot;Courier New&quot;">P(</span></span><span style="font-family:&quot;Courier New&quot;">)</span> and <span style="font-family:&quot;Courier New&quot;">V()</span>
+operations that we discussed in class <span class="SpellE"><span style="font-family:&quot;Courier New&quot;">sem_wait</span></span><span style="font-family:
+&quot;Courier New&quot;">()</span> and <span class="SpellE"><span style="font-family:&quot;Courier New&quot;">sem_post</span></span><span style="font-family:&quot;Courier New&quot;">()</span>, respectively. The code example
+below creates a binary semaphore <span class="SpellE"><span style="font-family:
+&quot;Courier New&quot;">mutex</span></span> with an initial value of 1 and illustrates
+its use in protecting a critical section:</p>
+
+<p><o:p>&nbsp;</o:p></p>
+
+<p><span style="font-family:&quot;Courier New&quot;">#include &lt;<span class="SpellE">semaphore.h</span>&gt;<o:p></o:p></span></p>
+
+<p><span class="SpellE"><span class="GramE"><span style="font-family:&quot;Courier New&quot;">sem</span></span><span style="font-family:&quot;Courier New&quot;">_t</span></span><span style="font-family:
+&quot;Courier New&quot;"> <span class="SpellE">mutex</span>;<o:p></o:p></span></p>
+
+<p><span style="font-family:&quot;Courier New&quot;"><o:p>&nbsp;</o:p></span></p>
+
+<p><span style="font-family:&quot;Courier New&quot;">// Create the semaphore and
+initialize it to 1<o:p></o:p></span></p>
+
+<p><span class="SpellE"><span class="GramE"><span style="font-family:&quot;Courier New&quot;">sem</span></span><span style="font-family:&quot;Courier New&quot;">_init</span></span><span style="font-family:
+&quot;Courier New&quot;">(&amp;<span class="SpellE">mutex</span>, 0, 1);<o:p></o:p></span></p>
+
+<p><span style="font-family:&quot;Courier New&quot;"><o:p>&nbsp;</o:p></span></p>
+
+<p><span class="SpellE"><span class="GramE"><span style="font-family:&quot;Courier New&quot;">sem</span></span><span style="font-family:&quot;Courier New&quot;">_wait</span></span><span style="font-family:
+&quot;Courier New&quot;">(&amp;<span class="SpellE">mutex</span>);<o:p></o:p></span></p>
+
+<p><span style="font-family:&quot;Courier New&quot;"><o:p>&nbsp;</o:p></span></p>
+
+<p><span style="font-family:&quot;Courier New&quot;">// *** critical section ***<o:p></o:p></span></p>
+
+<p><span style="font-family:&quot;Courier New&quot;"><o:p>&nbsp;</o:p></span></p>
+
+<p><span class="SpellE"><span class="GramE"><span style="font-family:&quot;Courier New&quot;">sem</span></span><span style="font-family:&quot;Courier New&quot;">_post</span></span><span style="font-family:
+&quot;Courier New&quot;">(&amp;<span class="SpellE">mutex</span>);<o:p></o:p></span></p>
+
+<p><span style="font-family:&quot;Courier New&quot;"><o:p>&nbsp;</o:p></span></p>
+
+<p>Your task is to carefully read, understand, complete, and run the code
+below, which implements a semaphore-based solution to the bounded buffer
+producer/consumer problem that we discussed in class. The parts of the program
+that you need to complete are written in boldface.</p>
+
+<p>The buffer is manipulated with two functions, <span class="SpellE"><span style="font-family:&quot;Courier New&quot;">insert_<span class="GramE">item</span></span></span><span class="GramE"><span style="font-family:&quot;Courier New&quot;">(</span></span><span style="font-family:&quot;Courier New&quot;">)</span> and <span class="SpellE"><span style="font-family:&quot;Courier New&quot;">remove_item</span></span><span style="font-family:&quot;Courier New&quot;">()</span>, which are called by the producer
+and consumer threads, respectively. After you complete (by using semaphores)
+the <span class="SpellE"><span style="font-family:&quot;Courier New&quot;">insert_<span class="GramE">item</span></span></span><span class="GramE"><span style="font-family:
+&quot;Courier New&quot;">(</span></span><span style="font-family:&quot;Courier New&quot;">)</span>
+and <span class="SpellE"><span style="font-family:&quot;Courier New&quot;">remove_item</span></span><span style="font-family:&quot;Courier New&quot;">()</span>functions, these functions will
+synchronize the producer and consumer threads. You must use three semaphores: <span style="font-family:&quot;Courier New&quot;">empty</span> and <span style="font-family:
+&quot;Courier New&quot;">full</span>, which count the number of empty and full slots in
+the buffer, and <span class="SpellE"><span style="font-family:&quot;Courier New&quot;">mutex</span></span>,
+which is a binary (or mutual exclusion) semaphore that protects the actual
+insertion or removal of items in the buffer (i.e., the critical section). </p>
+
+<p>The <span class="GramE"><span style="font-family:&quot;Courier New&quot;">main(</span></span><span style="font-family:&quot;Courier New&quot;">)</span> function initializes the buffer and
+creates separate producer and consumer threads. Once it has created the
+producer and consumer threads, the <span class="GramE"><span style="font-family:
+&quot;Courier New&quot;">main(</span></span><span style="font-family:&quot;Courier New&quot;">)</span>
+function will sleep for a period of time and, upon awakening, will terminate
+the application. The <span class="GramE"><span style="font-family:&quot;Courier New&quot;">main(</span></span><span style="font-family:&quot;Courier New&quot;">)</span> function is passed three parameters
+on the command line:</p>
+
+<p style="margin-left:36.0pt;text-indent:-18.0pt;mso-list:l1 level1 lfo4;
+tab-stops:list 36.0pt"><!--[if !supportLists]--><span style="mso-list:Ignore">1.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span></span><!--[endif]-->How
+long to sleep before terminating</p>
+
+<p style="margin-left:36.0pt;text-indent:-18.0pt;mso-list:l1 level1 lfo4;
+tab-stops:list 36.0pt"><!--[if !supportLists]--><span style="mso-list:Ignore">2.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span></span><!--[endif]-->The
+number of producer threads</p>
+
+<p style="margin-left:36.0pt;text-indent:-18.0pt;mso-list:l1 level1 lfo4;
+tab-stops:list 36.0pt"><!--[if !supportLists]--><span style="mso-list:Ignore">3.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp; </span></span><!--[endif]-->The
+number of consumer threads</p>
+
+<p>The producer thread alternates between sleeping for a random period of time
+and inserting a random integer into the buffer. The consumer thread sleeps for
+a random period of time and, upon awakening, attempts to remove an item from
+the buffer.</p>
+
+<p>After you complete the code, compile it: <span style="font-family:&quot;Courier New&quot;">g++
+<span class="SpellE">buffer.c</span> –<span class="SpellE">lpthread</span><span style="mso-tab-count:1"> </span><o:p></o:p></span></p>
+
+<p><span style="font-family:&quot;Courier New&quot;"><o:p>&nbsp;</o:p></span></p>
+
+<p><span style="mso-bidi-font-family:&quot;Courier New&quot;">After successful
+compilation, run the program and test it. Submit a printout of the completed
+program.</span></p>
+
+<p class="MsoPlainText"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;">//
+<span class="SpellE">buffer.c</span> <o:p></o:p></span></p>
+
+<p class="MsoPlainText"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;">//
+Bounded-buffer Producer/Consumer problem with semaphores<br>
+#include &lt;<span class="SpellE">stdio.h</span>&gt;<br>
+#include &lt;<span class="SpellE">stdlib.h</span>&gt;<br>
+#include &lt;<span class="SpellE">pthread.h</span>&gt;<br>
+#include &lt;<span class="SpellE">semaphore.h</span>&gt;<o:p></o:p></span></p>
+
+<p class="MsoPlainText"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;">#<span class="GramE">include</span> &lt;<span class="SpellE">unistd.h</span>&gt;<br>
+<br>
+#define TRUE 1<br>
+#define BUFFER_SIZE 5<br>
+<br>
+<span class="SpellE">typedef</span> <span class="SpellE">int</span> <span class="SpellE">buffer_item</span>;<br>
+<span class="SpellE">buffer_item</span> buffer[BUFFER_SIZE];<o:p></o:p></span></p>
+
+<p class="MsoPlainText"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;">//
+<b style="mso-bidi-font-weight:normal">DECLARE THE 3 SEMAPHORES empty, full,
+AND <span class="SpellE">mutex</span><o:p></o:p></b></span></p>
+
+<p class="MsoPlainText"><span class="SpellE"><span class="GramE"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;">int</span></span></span><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;"> <span class="SpellE">insertPointer</span> = 0, <span class="SpellE">removePointer</span> =
+0;<br>
+<br>
+void *producer(void *);<br>
+void *consumer(void *);<br>
+<span class="SpellE">int</span> <span class="SpellE">insert_item</span>(<span class="SpellE">buffer_item</span> item);<br>
+<span class="SpellE">int</span> <span class="SpellE">remove_item</span>(<span class="SpellE">buffer_item</span> *item);<br>
+<br>
+<span class="SpellE">int</span> <span class="SpellE">insert_item</span>(<span class="SpellE">buffer_item</span> item)<br>
+{<br>
+<span style="mso-spacerun: yes">&nbsp; </span>// <b style="mso-bidi-font-weight:
+normal">EXECUTE OPERATION ON empty SEMAPHORE TO WAIT FOR EMPTY SPACE IN BUFFER<br>
+</b><span style="mso-spacerun: yes">&nbsp; </span><br>
+<span style="mso-spacerun: yes">&nbsp; </span>// <b style="mso-bidi-font-weight:
+normal">EXECUTE OPERATION ON <span class="SpellE">mutex</span> SEMAPHORE TO WAIT
+FOR ACCESS TO CRITICAL <o:p></o:p></b></span></p>
+
+<p class="MsoPlainText"><b style="mso-bidi-font-weight:normal"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;"><span style="mso-spacerun: yes">&nbsp; </span></span></b><span style="font-size:12.0pt;
+mso-bidi-font-family:&quot;Times New Roman&quot;">//<b style="mso-bidi-font-weight:normal">
+SECTION (<span class="GramE">I.E.,</span> BUFFER) TO INSERT ITEM<br>
+</b><span style="mso-spacerun: yes">&nbsp; </span><br>
+<span style="mso-spacerun: yes">&nbsp; </span>buffer[<span class="SpellE">insertPointer</span>++]
+= item;<br>
+<span style="mso-spacerun: yes">&nbsp; </span><span class="SpellE">insertPointer</span>
+= <span class="SpellE">insertPointer</span> % 5;<br>
+<br>
+<span style="mso-spacerun: yes">&nbsp; </span>// <b style="mso-bidi-font-weight:
+normal">EXECUTE OPERATION ON <span class="SpellE">mutex</span> SEMAPHORE TO
+RELEASE ACCESS TO CRITICAL SECTION (I.E., BUFFER)<o:p></o:p></b></span></p>
+
+<p class="MsoPlainText"><b style="mso-bidi-font-weight:normal"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;"><o:p>&nbsp;</o:p></span></b></p>
+
+<p class="MsoPlainText"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;"><span style="mso-spacerun: yes">&nbsp; </span>// <b style="mso-bidi-font-weight:normal">EXECUTE
+OPERATION ON full SEMAPHORE TO SIGNAL AVAILABILITY OF ONE MORE ITEM IN BUFFER</b><o:p></o:p></span></p>
+
+<p class="MsoPlainText"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;"><span style="mso-spacerun: yes">&nbsp; </span><span style="mso-tab-count:1">&nbsp;&nbsp; </span><br>
+<span style="mso-spacerun: yes">&nbsp; </span><span class="GramE">return</span>
+0;<br>
+}<br>
+<br>
+<span class="SpellE">int</span> <span class="SpellE">remove_item</span>(<span class="SpellE">buffer_item</span> *item)<br>
+{<br>
+<span style="mso-spacerun: yes">&nbsp; </span>// <b style="mso-bidi-font-weight:
+normal">EXECUTE OPERATION ON full SEMAPHORE TO WAIT FOR ITEM IN BUFFER<br>
+</b><span style="mso-spacerun: yes">&nbsp; </span><br>
+<span style="mso-spacerun: yes">&nbsp; </span>// <b style="mso-bidi-font-weight:
+normal">EXECUTE OPERATION ON <span class="SpellE">mutex</span> SEMAPHORE TO WAIT
+FOR ACCESS TO CRITICAL <o:p></o:p></b></span></p>
+
+<p class="MsoPlainText"><b style="mso-bidi-font-weight:normal"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;"><span style="mso-spacerun: yes">&nbsp; </span></span></b><span style="font-size:12.0pt;
+mso-bidi-font-family:&quot;Times New Roman&quot;">//<b style="mso-bidi-font-weight:normal">
+SECTION (<span class="GramE">I.E.,</span> BUFFER) TO REMOVE ITEM<br>
+</b><span style="mso-spacerun: yes">&nbsp; </span><br>
+<span style="mso-spacerun: yes">&nbsp; </span>*item = buffer[<span class="SpellE">removePointer</span>];<br>
+<span style="mso-spacerun: yes">&nbsp; </span>buffer[<span class="SpellE">removePointer</span>++]
+= -1;<br>
+<span style="mso-spacerun: yes">&nbsp; </span><span class="SpellE">removePointer</span>
+= <span class="SpellE">removePointer</span> % 5;<br>
+<br>
+<span style="mso-spacerun: yes">&nbsp; </span>// <b style="mso-bidi-font-weight:
+normal">EXECUTE OPERATION ON <span class="SpellE">mutex</span> SEMAPHORE TO
+RELEASE ACCESS TO CRITICAL SECTION (I.E., BUFFER)<o:p></o:p></b></span></p>
+
+<p class="MsoPlainText"><b style="mso-bidi-font-weight:normal"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;"><o:p>&nbsp;</o:p></span></b></p>
+
+<p class="MsoPlainText"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;"><span style="mso-spacerun: yes">&nbsp; </span>// <b style="mso-bidi-font-weight:normal">EXECUTE
+OPERATION ON empty SEMAPHORE TO SIGNAL AVAILABILITY OF ONE MORE FREE SPACE IN
+BUFFER<o:p></o:p></b></span></p>
+
+<p class="MsoPlainText"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoPlainText"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;"><span style="mso-spacerun: yes">&nbsp; </span>return 0;<br>
+}<br>
+<br>
+<br>
+<span class="SpellE">int</span> main(<span class="SpellE">int</span> <span class="SpellE">argc</span>, char *<span class="SpellE">argv</span>[])<br>
+{<br>
+<span style="mso-spacerun: yes">&nbsp; </span><span class="SpellE">int</span> <span class="SpellE">sleepTime</span>, <span class="SpellE">producerThreads</span>, <span class="SpellE">consumerThreads</span>;<br>
+<span style="mso-spacerun: yes">&nbsp; </span><span class="SpellE">int</span> <span class="SpellE">i</span>, j;<br>
+<br>
+<span style="mso-spacerun: yes">&nbsp; </span>if(<span class="SpellE">argc</span>
+!= 4)<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>{<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="SpellE">fprintf</span>(<span class="SpellE">stderr</span>, "<span class="SpellE">Useage</span>: &lt;sleep time&gt; &lt;producer threads&gt;
+&lt;consumer threads&gt;\n");<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>return
+-1;<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>}<br>
+<br>
+<span style="mso-spacerun: yes">&nbsp; </span><span class="SpellE">sleepTime</span>
+= <span class="SpellE">atoi</span>(<span class="SpellE">argv</span>[1]);<br>
+<span style="mso-spacerun: yes">&nbsp; </span><span class="SpellE">producerThreads</span>
+= <span class="SpellE">atoi</span>(<span class="SpellE">argv</span>[2]);<br>
+<span style="mso-spacerun: yes">&nbsp; </span><span class="SpellE">consumerThreads</span>
+= <span class="SpellE">atoi</span>(<span class="SpellE">argv</span>[3]);<br>
+<br>
+<span style="mso-spacerun: yes">&nbsp; </span>// <b style="mso-bidi-font-weight:
+normal">INITIALIZE THE THREE SEMAPHORES<br>
+</b><span style="mso-spacerun: yes">&nbsp; </span><o:p></o:p></span></p>
+
+<p class="MsoPlainText"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoPlainText"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;"><span style="mso-spacerun: yes">&nbsp; </span><span class="SpellE"><span class="GramE">srand</span></span>(time(0));<br>
+<br>
+<span style="mso-spacerun: yes">&nbsp; </span>//Create the producer and
+consumer threads<br>
+<span style="mso-spacerun: yes">&nbsp; </span>for(<span class="SpellE">i</span> =
+0; <span class="SpellE">i</span> &lt; <span class="SpellE">producerThreads</span>; <span class="SpellE">i</span>++)<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>{<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="SpellE">pthread_t</span> <span class="SpellE">tid</span>;<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="SpellE">pthread_attr_t</span> <span class="SpellE">attr</span>;<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="SpellE">pthread_attr_init</span>(&amp;<span class="SpellE">attr</span>);<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="SpellE">pthread_create</span>(&amp;<span class="SpellE">tid</span>, &amp;<span class="SpellE">attr</span>, producer, NULL);<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>}<br>
+<br>
+<span style="mso-spacerun: yes">&nbsp; </span>for(j = 0; j &lt; <span class="SpellE">consumerThreads</span>; j++)<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>{<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="SpellE">pthread_t</span> <span class="SpellE">tid</span>;<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="SpellE">pthread_attr_t</span> <span class="SpellE">attr</span>;<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="SpellE">pthread_attr_init</span>(&amp;<span class="SpellE">attr</span>);<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="SpellE">pthread_create</span>(&amp;<span class="SpellE">tid</span>, &amp;<span class="SpellE">attr</span>, consumer, NULL);<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>}<br>
+<br>
+<span style="mso-spacerun: yes">&nbsp; </span>//Sleep for user specified time<br>
+<span style="mso-spacerun: yes">&nbsp; </span>sleep(<span class="SpellE">sleepTime</span>);<br>
+<span style="mso-spacerun: yes">&nbsp; </span>return 0;<br>
+}<br>
+<br>
+void *producer(void *<span class="SpellE">param</span>)<br>
+{<br>
+<span style="mso-spacerun: yes">&nbsp; </span><span class="SpellE">buffer_item</span>
+random;<br>
+<span style="mso-spacerun: yes">&nbsp; </span><span class="SpellE">int</span> r;<br>
+<br>
+<span style="mso-spacerun: yes">&nbsp; </span>while(TRUE)<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>{<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>r =
+rand() % 5;<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>sleep(r);<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>random =
+rand();<br>
+<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if(<span class="SpellE">insert_item</span>(random))<br>
+<span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="mso-spacerun: yes">&nbsp; </span><span class="SpellE">fprintf</span>(<span class="SpellE">stderr</span>, "Error");<br>
+<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="SpellE">printf</span>("Producer produced %d \n", random);<br>
+<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>}<br>
+<br>
+}<br>
+<br>
+void *consumer(void *<span class="SpellE">param</span>)<br>
+{<br>
+<span style="mso-spacerun: yes">&nbsp; </span><span class="SpellE">buffer_item</span>
+random;<br>
+<span style="mso-spacerun: yes">&nbsp; </span><span class="SpellE">int</span> r;<br>
+<br>
+<span style="mso-spacerun: yes">&nbsp; </span>while(TRUE)<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>{<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>r =
+rand() % 5;<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>sleep(r);<br>
+<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>if(<span class="SpellE">remove_item</span>(&amp;random))<br>
+<span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="mso-spacerun: yes">&nbsp; </span><span class="SpellE">fprintf</span>(<span class="SpellE">stderr</span>, "Error Consuming");<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>else<br>
+<span style="mso-tab-count:1">&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="SpellE">printf</span>("Consumer consumed %d \n", random);<br>
+<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp; </span>}<br>
+</span><span style="mso-bidi-font-family:&quot;Times New Roman&quot;">}<o:p></o:p></span></p>
+
+<p class="MsoPlainText"><span style="mso-bidi-font-family:&quot;Times New Roman&quot;"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoPlainText"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoPlainText"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoPlainText"><b style="mso-bidi-font-weight:normal"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;">Next, change the
+<span class="SpellE">mutex</span> semaphore to using <span class="SpellE">pthread</span>
+<span class="SpellE">mutex</span> lock. The <span class="SpellE">Pthread</span> API
+for <span class="SpellE">pthread</span> <span class="SpellE">mutex</span> lock can
+be found below.<o:p></o:p></span></b></p>
+
+<p class="MsoPlainText"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;"><o:p>&nbsp;</o:p></span></p>
+
+<p class="MsoPlainText"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;"><o:p>&nbsp;</o:p></span></p>
+
+<p><span style="font-family:&quot;Courier New&quot;">#<span class="GramE">include</span>
+&lt;<span class="SpellE">pthread.h</span>&gt;<o:p></o:p></span></p>
+
+<p><span class="SpellE"><span class="GramE"><span style="font-family:&quot;Courier New&quot;">pthread</span></span><span style="font-family:&quot;Courier New&quot;">_mutex_t</span></span><span style="font-family:
+&quot;Courier New&quot;"> <span class="SpellE">mutex</span>;;<o:p></o:p></span></p>
+
+<p><span style="font-family:&quot;Courier New&quot;"><o:p>&nbsp;</o:p></span></p>
+
+<p><span style="font-family:&quot;Courier New&quot;">// Create the semaphore and
+initialize it to 1<o:p></o:p></span></p>
+
+<p><span class="SpellE"><span class="GramE"><span style="font-family:&quot;Courier New&quot;">pthread</span></span><span style="font-family:&quot;Courier New&quot;">_mutex_init</span></span><span style="font-family:&quot;Courier New&quot;">(&amp;<span class="SpellE">mutex</span>, NULL);<o:p></o:p></span></p>
+
+<p><span style="font-family:&quot;Courier New&quot;"><o:p>&nbsp;</o:p></span></p>
+
+<p><span class="SpellE"><span class="GramE"><span style="font-family:&quot;Courier New&quot;">pthread</span></span><span style="font-family:&quot;Courier New&quot;">_mutex_lock</span></span><span style="font-family:&quot;Courier New&quot;">(&amp;<span class="SpellE">mutex</span>);<o:p></o:p></span></p>
+
+<p><span style="font-family:&quot;Courier New&quot;"><o:p>&nbsp;</o:p></span></p>
+
+<p><span style="font-family:&quot;Courier New&quot;">// *** <span class="GramE">critical</span>
+section ***<o:p></o:p></span></p>
+
+<p><span style="font-family:&quot;Courier New&quot;"><o:p>&nbsp;</o:p></span></p>
+
+<p><span class="SpellE"><span class="GramE"><span style="font-family:&quot;Courier New&quot;">pthread</span></span><span style="font-family:&quot;Courier New&quot;">_mutex_unlock</span></span><span style="font-family:&quot;Courier New&quot;">(&amp;<span class="SpellE">mutex</span>);<o:p></o:p></span></p>
+
+<p class="MsoPlainText"><span style="font-size:12.0pt;mso-bidi-font-family:&quot;Times New Roman&quot;"><o:p>&nbsp;</o:p></span></p>
+
+</div>
+
+
+
+
+</body></html>

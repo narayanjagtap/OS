@@ -1,0 +1,44 @@
+
+#include<stdio.h>
+#include<fcntl.h>
+#include<sys/stat.h>
+#include<unistd.h>
+#include<string.h>
+#define s_c "myfifo1"
+#define c_s "myfifo2"
+
+int main()
+{
+	char str[100],readbuf[80],temp[80]="";
+	int stc,cts,i=0,j=0,n;
+	printf("Create FIFO");
+	mkfifo(s_c,0666);
+	stc=open(s_c,O_RDWR);
+	printf("\nEnter the sentences:\n");
+	scanf("%[^\t]s",&str[i]);
+	printf("\nWriting to MYFIFO1....");
+	write(stc,str,sizeof(str));
+	mkfifo(c_s,0777);
+	cts=open(c_s,O_RDWR);
+	printf("\nReading from MYFIFO2...");
+	read(cts,readbuf,80);
+	
+	while(readbuf[i]!='\0')
+	{
+		while(readbuf[i]!=',')
+		{
+			temp[j]=readbuf[i];
+			i++;
+			j++;
+		}
+		temp[j]='\0';
+		printf("\n%s",temp);
+		strcpy(temp,"");
+		i++;
+		j=0;
+	}
+	close(stc);
+	close(cts);
+	return 0;
+}
+

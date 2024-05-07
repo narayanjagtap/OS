@@ -1,0 +1,92 @@
+ubuntu@ubuntu-HP-dx2480-MT-FH295PA:~$ gcc banker.c
+ubuntu@ubuntu-HP-dx2480-MT-FH295PA:~$ ./a.out
+------------===============Banker`s Algorithm====================------------
+
+ Enter no. of processes : 5
+Enter no. of resource Types : 3
+Enter no. of available resources of each type: 
+Resource-A : 3
+Resource-B : 3
+Resource-C : 2
+Enter Maximum Demand of each process : 
+For Process P0 : 7 5 3
+For Process P1 : 3 2 2
+For Process P2 : 9 0 2
+For Process P3 : 2 2 2
+For Process P4 : 4 3 3
+Enter Allocation of each process : 
+For Process P0 : 0 1 0
+For Process P1 : 2 0 0
+For Process P2 : 3 0 2
+For Process P3 : 2 1 1
+For Process P4 : 0 0 2
+Calculation of Need matrix
+--------Need Matrix---------
+743
+122
+600
+011
+431
+***************MENU*************
+	1 : Safe Sequence
+	2 : Resource Request
+	3 : Exit
+Enter your choice : 1
+Process P[1] over
+Finish[FTFFF]-----------------------
+Process P[3] over
+Finish[FTFTF]-----------------------
+Process P[4] over
+Finish[FTFTT]-----------------------
+Process P[0] over
+Finish[TTFTT]-----------------------
+Process P[2] over
+Finish[TTTTT]-----------------------
+System is in safe state
+<P1,P3,P4,P0,P2,>
+***************MENU*************
+	1 : Safe Sequence
+	2 : Resource Request
+	3 : Exit
+Enter your choice : 2
+Enter process no : 1
+Enter the request : 1 0 2
+Process P[1] over
+Finish[FTFFF]-----------------------
+Process P[3] over
+Finish[FTFTF]-----------------------
+Process P[4] over
+Finish[FTFTT]-----------------------
+Process P[0] over
+Finish[TTFTT]-----------------------
+Process P[2] over
+Finish[TTTTT]-----------------------
+System is in safe state
+<P1,P3,P4,P0,P2,>
+Process P1 is allocated it`s resources
+***************MENU*************
+	1 : Safe Sequence
+	2 : Resource Request
+	3 : Exit
+Enter your choice : 2
+Enter process no : 4
+Enter the request : 3 3 0
+System is in safe state
+<>
+Process P4 is allocated it`s resources
+***************MENU*************
+	1 : Safe Sequence
+	2 : Resource Request
+	3 : Exit
+Enter your choice : 2
+Enter process no : 0
+Enter the request : 0 2 0
+System is in safe state
+<>
+Process P0 is allocated it`s resources
+***************MENU*************
+	1 : Safe Sequence
+	2 : Resource Request
+	3 : Exit
+Enter your choice : 
+

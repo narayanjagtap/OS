@@ -1,0 +1,89 @@
+
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<pthread.h>
+#include<semaphore.h>
+#include<sys/types.h>
+#include<unistd.h>
+
+void *consumer();
+void *producer();
+
+pthread_t p,c;//threads
+sem_t empty,full;//counting semaphore
+pthread_mutex_t mutex;//thread synchronization using pthread mutex
+pthread_attr_t attr;//thread attributes
+int counter=0;
+int buffer[5];//buffer
+
+//initialize all variables
+void init()
+{
+	pthread_attr_init(&attr);//set default atrtributes
+	sem_init(&full,0,0);//full=0
+	sem_init(&empty,0,5);//empty=5
+	pthread_mutex_init(&mutex,NULL);//mutex=1
+}
+
+int main()
+{
+	int np,nc,i;
+	init();
+   	printf("Enter no of producers:");
+	scanf("%d",&np);
+	printf("Enter no of consumers:");
+	scanf("%d",&nc);
+	for(i=0;i<np;i++)
+	{
+		pthread_create(&p,&attr,producer,NULL);
+	}
+ 	for(i=0;i<nc;i++)
+	{
+		pthread_create(&c,&attr,consumer,NULL); 
+	}
+	for(i=0;i<np;i++)
+ 	pthread_join(p,NULL);
+	for(i=0;i<nc;i++)
+	pthread_join(c,NULL);	
+	return 0;
+}
+
+void *producer()
+{
+	int item=rand()%100;//item generate
+	if(counter>=5)
+	printf("buffer full..Error\t");
+        sem_wait(&empty);//wait
+	pthread_mutex_lock(&mutex);
+	if(counter<5)
+	{
+        	buffer[counter]=item;//cs
+		counter++;
+		printf("Producer produced %d\n",item);
+	}
+	pthread_mutex_unlock(&mutex);
+	sem_post(&full);//signal                
+	pthread_exit(0);
+}
+
+void *consumer()
+{
+	int item;
+	if(counter==0)
+	{	printf("buffer empty..Error\t");	
+		return 0;
+	}
+	sem_wait(&full);
+	pthread_mutex_lock(&mutex);
+	if(counter>0)
+	{
+		item=buffer[counter-1];
+		counter--;
+		printf("Consumer consumed %d\n",item);
+	}
+	pthread_mutex_unlock(&mutex);
+	sem_post(&empty);
+	pthread_exit(0);
+}
+

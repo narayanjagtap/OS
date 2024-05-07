@@ -1,0 +1,69 @@
+#include<stdio.h>
+#include<fcntl.h>
+#include<sys/stat.h>
+#include<unistd.h>
+#include<string.h>
+#define s_c "myfifo1"
+#define c_s "myfifo2"
+int main()
+{
+	char readbuf[80];
+	char string[80]="";
+	char temp[20];
+	int stc,cts;
+	int i=0,w=1,l=1;
+	FILE *fp;
+	stc=open(s_c,O_RDWR);
+	printf("\nReading from myfifo1....");
+	
+	read(stc,readbuf,80);
+
+	printf("\nrecieved from server=%s",readbuf);
+
+	while(readbuf[i] != '\0')
+	{
+	
+		if(readbuf[i]==' ' || readbuf[i]=='.' || readbuf[i]==',')
+		{
+			w++;
+		}
+	
+		if(readbuf[i]=='\n')
+		{
+			l++;
+			w++;
+		}
+
+		i++;
+	}
+	fp=fopen("server.txt","w");
+	fprintf(fp,"No of Characters = %d\n",i);
+	fprintf(fp,"No of Words= %d\n",w);
+	fprintf(fp,"No of Lines = %d",l);
+	
+	strcat(string,"No of character=");
+	sprintf(temp,"%d",i-(w-1));
+	strcat(string,temp);
+	strcat(string,",");
+
+	strcat(string,"No of Words=");
+	sprintf(temp,"%d",w);
+	strcat(string,temp);
+	strcat(string,",");
+
+	strcat(string,"No of Lines=");
+	sprintf(temp,"%d",l);
+	strcat(string,temp);
+	strcat(string,",");
+
+
+	cts=open(c_s,O_RDWR);
+	printf("\nWriting to myfifo2\n");
+	write(cts,string,sizeof(string));
+
+	fclose(fp);
+	close(stc);
+	close(cts);
+	return 0;
+}
+

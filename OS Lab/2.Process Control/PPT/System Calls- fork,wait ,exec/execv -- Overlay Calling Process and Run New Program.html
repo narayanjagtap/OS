@@ -1,0 +1,83 @@
+
+<!-- saved from url=(0070)https://support.sas.com/documentation/onlinedoc/sasc/doc/lr2/execv.htm -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>execv -- Overlay Calling Process and Run New Program</title></head><body bgcolor="#FFFFFF">
+<p>
+ </p><h3>execv -- Overlay Calling Process and Run New Program</h3>
+
+ <img src="./execv -- Overlay Calling Process and Run New Program_files/posix.gif"><img src="./execv -- Overlay Calling Process and Run New Program_files/unix.gif"><h4>SYNOPSIS</h4>
+
+ <pre> #include &lt;unistd.h&gt;
+
+ int execv(const char *file, char *const argv[]);
+ </pre>
+
+ <h4>DESCRIPTION</h4>
+
+ Like all of the <code>exec</code> functions,
+ <code>execv</code> replaces the calling process image with a new process
+ image. This has the effect of running a new progam with the process
+ ID of the calling process. Note that a new process is not started;
+ the new process image simply overlays the original process image.
+ The <code>execv</code> function is most commonly used to overlay a
+ process image that has been created by a call to the <code>fork</code>
+ function.
+
+ <dl>
+ <dt><code>file</code>
+ </dt><dd>
+ is the filename of the file that contains the executable image
+ of the new process.
+
+ </dd><dt><code>argv</code>
+ </dt><dd>
+
+ is a pointer to an array of pointers to null-terminated character
+ strings. A <code>NULL</code> pointer is used to mark the end of the
+ array. Each character string pointed to by the array
+ is used to pass an argument to the new process image. The
+ first argument, <code>argv[0]</code>,
+ is required and must contain the name of the executable
+ file for the new process image.
+
+ </dd></dl>
+
+ <h4>RETURN VALUE</h4>
+
+ A successful call to <code>execv</code> does not have a return value
+ because the new process image overlays the calling process
+ image. However,
+ a <code>-1</code> is returned if the call to <code>execv</code> is unsuccessful.
+
+ <h4>EXAMPLE</h4>
+
+ The following example illustrates the use of <code>execv</code>
+ to execute the <code>ls</code> shell command:
+
+ <pre>  #include &lt;sys/types.h&gt;
+  #include &lt;unistd.h&gt;
+  #include &lt;stdio.h&gt;
+
+  main()
+  {
+     pid_t pid;
+     char *const parmList[] = {"/bin/ls", "-l", "/u/userid/dirname", NULL};
+
+     if ((pid = fork()) == -1)
+        perror("fork error");
+     else if (pid == 0) {
+        execv("/bin/ls", parmList);
+        printf("Return not expected. Must be an execv error.n");
+     }
+  }
+
+ </pre>
+
+ <h4>RELATED FUNCTIONS</h4>
+
+ <code>execl</code>, <code>execle</code>, <code>execlp</code>
+ <p>
+ </p><hr>
+ <p><a href="https://support.sas.com/documentation/onlinedoc/sasc/doc/index.htm"><img src="./execv -- Overlay Calling Process and Run New Program_files/button.books.gif"></a></p><p><font size="-3"><a href="https://support.sas.com/documentation/onlinedoc/sasc/doc/common/images/copyrite.htm">Copyright (c) 1998 SAS Institute Inc.</a> Cary, NC, USA. All rights reserved.</font>
+
+</p></body></html>

@@ -1,0 +1,116 @@
+/*Assignment No. 3
+Title-Implement multithreading for Matrix Multiplication using pthreads
+Roll no-21*/
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<pthread.h>
+#include<sys/types.h>
+#include<unistd.h>
+int a[10][10],b[10][10],c[10][10];
+int r1,c1,r2,c2;
+struct v
+{
+	int i,j,k;
+};
+
+void *mul(void *str);
+
+pthread_t p;   //There are around 100 threads procedures. multiple different flows . Each flow of work is referred to as a thread
+void  *res;
+int main()
+{
+	int i,j,k,n,c1,r1,c2,r2,cnt=0;
+	printf("\nEnter the size of first matrix:");
+	scanf("%d%d",&r1,&c1);
+	printf("\nEnter the size of second matrix:");
+	scanf("%d%d",&r2,&c2);
+	if(c1==r2)
+	{
+		printf("\nEnter elements of first matrix:\n");
+		for(i=0;i<r1;i++)
+		{
+			for(j=0;j<c1;j++)
+			{
+				scanf("%d",&a[i][j]);
+			}
+		}
+		printf("\nEnter elements of second matrix:\n");
+		for(i=0;i<r2;i++)
+		{
+			for(j=0;j<c2;j++)
+			{
+				scanf("%d",&b[i][j]);
+			}
+		}
+	}
+	struct v *val = (struct v *) malloc(sizeof(struct v));
+	for(i = 0; i < r1; i++)
+	{
+		for(j = 0; j < c2; j++)
+		{
+			for(n = 0; n< c1; n++)	
+			{
+				val->i = i;
+				val->j = j;
+				val->k = n;    
+
+			pthread_create(&p,NULL,mul,val);
+			pthread_join(p,&res);
+			c[i][j] += *((int *)res);
+			cnt++;    
+			}
+		}
+	}
+	printf("\nMatrix after multiplication using pthread \n");
+	for(i=0;i<r1;i++)
+	{
+		printf("\n");
+		for(j=0;j<c2;j++)
+		{
+			printf("%d\t",c[i][j]);
+		}
+	}
+	printf("\nNo. of threads=%d",cnt);
+	return 0;
+}
+ 
+void *mul(void *str)
+{
+	struct v *ptr = str;
+	int n, *product;
+
+	product=malloc(sizeof(int));
+	*product =a[ptr->i][ptr->k] * b[ptr->k][ptr->j];
+   
+	pthread_exit((void*)product);
+}
+
+/*-----------------------------
+OUTPUT:
+com03@com03-Veriton-M200-A58:~$ cd shraddha
+com03@com03-Veriton-M200-A58:~/shraddha$ gcc as3.c -lpthread
+com03@com03-Veriton-M200-A58:~/shraddha$ ./a.out
+
+Enter the size of first matrix:3 3
+
+Enter the size of second matrix:3 3
+
+Enter elements of first matrix:
+1 6 1
+2 1 3
+1 1 8
+
+Enter elements of second matrix:
+8 1 2
+4 2 3
+6 1 1
+
+Matrix after multiplication using pthread 
+
+38	14	21	
+38	7	10	
+60	11	13	
+No. of threads=27
+*/
+

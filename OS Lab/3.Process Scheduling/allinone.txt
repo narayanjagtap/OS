@@ -1,0 +1,303 @@
+ubuntu@ubuntu-HP-dx2480-MT-FH295PA:~$ gcc allinone.c
+ubuntu@ubuntu-HP-dx2480-MT-FH295PA:~$ ./a.out
+
+---- CPU SCHEDULING ----
+ Enter Number of Processes :5
+
+ Enter Details for Process 1:
+ Arrival Time:0
+ Burst Time:10
+
+ Enter Details for Process 2:
+ Arrival Time:1
+ Burst Time:29
+
+ Enter Details for Process 3:
+ Arrival Time:2
+ Burst Time:3
+
+ Enter Details for Process 4:
+ Arrival Time:3
+ Burst Time:7
+
+ Enter Details for Process 5:
+ Arrival Time:4
+ Burst Time:12
+
+---CPU SCHEDULING ALGORITHMS---
+  1.] FCFS(First Come First Serve)
+  2.] SJF(Shortest Job First)
+  3.] RR(Round Robin)
+  4.] PRIORITY
+  5.] Exit
+  Enter Choice:1
+
+
+-----GANTT CHART-----
+
+P1[0--10] | P2[10--39] | P3[39--42] | P4[42--49] | P5[49--61] | 
+
+-----TABULAR DATA-----
+
+
+Process	    Arr.Time	   Burst Time	   Turnaround	    Waiting
+P1		0		10		10		0
+
+P2		1		29		38		9
+
+P3		2		3		40		37
+
+P4		3		7		46		39
+
+P5		4		12		57		45
+
+Average Turnaround Time :38.20
+Average Waiting Time :26.00
+
+ Do you want to continue[Y|N]:y
+
+---CPU SCHEDULING ALGORITHMS---
+  1.] FCFS(First Come First Serve)
+  2.] SJF(Shortest Job First)
+  3.] RR(Round Robin)
+  4.] PRIORITY
+  5.] Exit
+  Enter Choice:2
+
+ 1.] SJF Non-Preemptive
+ 2.] SJF Preemptive
+ Enter Option:1
+
+
+-----GANTT CHART-----
+
+P1[0--10] | P3[10--13] | P4[13--20] | P5[20--32] | P2[32--61] | 
+
+-----TABULAR DATA-----
+
+
+Process	    Arr.Time	   Burst Time	   Turnaround	    Waiting
+P1		0		10		10		0
+
+P2		1		29		60		31
+
+P3		2		3		11		8
+
+P4		3		7		17		10
+
+P5		4		12		28		16
+
+Average Turnaround Time :25.20
+Average Waiting Time :13.00
+
+ Do you want to continue[Y|N]:y
+
+---CPU SCHEDULING ALGORITHMS---
+  1.] FCFS(First Come First Serve)
+  2.] SJF(Shortest Job First)
+  3.] RR(Round Robin)
+  4.] PRIORITY
+  5.] Exit
+  Enter Choice:2
+
+ 1.] SJF Non-Preemptive
+ 2.] SJF Preemptive
+ Enter Option:2
+
+
+-----GANTT CHART-----
+
+P1[0--2] | P3[2--5] | P4[5--12] | P1[12--20] | P5[20--32] | P2[32--61] 
+
+-----TABULAR DATA-----
+
+
+Process	    Arr.Time	   Burst Time	   Turnaround	    Waiting
+P1		0		10		20		10
+
+P2		1		29		60		31
+
+P3		2		3		3		0
+
+P4		3		7		9		2
+
+P5		4		12		28		16
+
+Average Turnaround Time :24.00
+Average Waiting Time :11.80
+
+ Do you want to continue[Y|N]:y
+
+---CPU SCHEDULING ALGORITHMS---
+  1.] FCFS(First Come First Serve)
+  2.] SJF(Shortest Job First)
+  3.] RR(Round Robin)
+  4.] PRIORITY
+  5.] Exit
+  Enter Choice:3
+
+ Enter time-quantum:10
+
+
+-----GANTT CHART-----
+
+P1[0--10] | P2[10--20] | P3[20--23] | P4[23--30] | P5[30--40] | P2[40--50] | P5[50--52] | P2[52--61] | 
+
+-----TABULAR DATA-----
+
+
+Process	    Arr.Time	   Burst Time	   Turnaround	    Waiting
+P1		0		10		10		0
+
+P2		1		29		60		31
+
+P3		2		3		21		18
+
+P4		3		7		27		20
+
+P5		4		12		48		36
+
+Average Turnaround Time :33.20
+Average Waiting Time :21.00
+
+ Do you want to continue[Y|N]:y
+
+---CPU SCHEDULING ALGORITHMS---
+  1.] FCFS(First Come First Serve)
+  2.] SJF(Shortest Job First)
+  3.] RR(Round Robin)
+  4.] PRIORITY
+  5.] Exit
+  Enter Choice:4
+
+ Enter Priority for Process1 :2
+
+ Enter Priority for Process2 :4
+
+ Enter Priority for Process3 :1
+
+ Enter Priority for Process4 :3
+
+ Enter Priority for Process5 :2
+
+ 1.] Priority Non-Preemptive
+ 2.] Priority Preemptive
+ Enter Option:1
+
+
+-----GANTT CHART-----
+
+P1[0--10] | P2[10--39] | P3[39--42] | P4[42--49] | P5[49--61] | 
+
+-----TABULAR DATA-----
+
+
+Process	    Arr.Time	   Burst Time	   Turnaround	    Waiting
+P1		0		10		10		0
+
+P2		1		29		38		9
+
+P3		2		3		40		37
+
+P4		3		7		46		39
+
+P5		4		12		57		45
+
+Average Turnaround Time :38.20
+Average Waiting Time :26.00
+
+ Do you want to continue[Y|N]:y
+
+---CPU SCHEDULING ALGORITHMS---
+  1.] FCFS(First Come First Serve)
+  2.] SJF(Shortest Job First)
+  3.] RR(Round Robin)
+  4.] PRIORITY
+  5.] Exit
+  Enter Choice:4
+
+ Enter Priority for Process1 :2
+
+ Enter Priority for Process2 :4
+
+ Enter Priority for Process3 :1
+
+ Enter Priority for Process4 :3
+
+ Enter Priority for Process5 :2
+
+ 1.] Priority Non-Preemptive
+ 2.] Priority Preemptive
+ Enter Option:2
+
+
+-----GANTT CHART-----
+
+P1[0--2] | P3[2--5] | P1[5--13] | P5[13--25] | P4[25--32] | P2[32--61] 
+
+-----TABULAR DATA-----
+
+
+Process	    Arr.Time	   Burst Time	   Turnaround	    Waiting
+P1		0		10		13		3
+
+P2		1		29		60		31
+
+P3		2		3		3		0
+
+P4		3		7		29		22
+
+P5		4		12		21		9
+
+Average Turnaround Time :25.20
+Average Waiting Time :13.00
+
+ Do you want to continue[Y|N]:y
+
+---CPU SCHEDULING ALGORITHMS---
+  1.] FCFS(First Come First Serve)
+  2.] SJF(Shortest Job First)
+  3.] RR(Round Robin)
+  4.] PRIORITY
+  5.] Exit
+  Enter Choice:4
+
+ Enter Priority for Process1 :2
+
+ Enter Priority for Process2 :4
+
+ Enter Priority for Process3 :1
+
+ Enter Priority for Process4 :3
+
+ Enter Priority for Process5 :2
+
+ 1.] Priority Non-Preemptive
+ 2.] Priority Preemptive
+ Enter Option:1
+
+
+-----GANTT CHART-----
+
+P1[0--10] | P2[10--39] | P3[39--42] | P4[42--49] | P5[49--61] | 
+
+-----TABULAR DATA-----
+
+
+Process	    Arr.Time	   Burst Time	   Turnaround	    Waiting
+P1		0		10		10		0
+
+P2		1		29		38		9
+
+P3		2		3		40		37
+
+P4		3		7		46		39
+
+P5		4		12		57		45
+
+Average Turnaround Time :38.20
+Average Waiting Time :26.00
+
+ Do you want to continue[Y|N]:n
+ubuntu@ubuntu-HP-dx2480-MT-FH295PA:~$ 
+

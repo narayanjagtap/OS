@@ -1,0 +1,511 @@
+Enter your Choice:-1
+
+
+---------------------------------------------------
+ Received Tracks	Accessed Tracks		Steps Required
+	123			123			222
+	874			874			751
+	692			692			182
+	475			475			217
+	105			105			370
+	376			376			271
+
+---------------------------------------------------
+ Total Seek Time	2013
+----------------------------------------------------
+
+***********SCHEDULING ALGORITHM*****************
+ 1.FCFS
+ 2.SSTF
+ 3.C-SCAN
+ 4.EXIT****************************************************
+
+Enter your Choice:-2
+
+
+--------------------------------------------------
+ Received Tracks	Accessed Tracks		Steps Required
+----------------------------------------------------------
+	123			376			31
+	874			475			99
+	692			692			217
+	475			874			182
+	105			123			751
+	376			105			18
+
+---------------------------------------------------
+ Total Seek Time	1298
+----------------------------------------------------------
+
+***********SCHEDULING ALGORITHM*****************
+ 1.FCFS
+ 2.SSTF
+ 3.C-SCAN
+ 4.EXIT****************************************************
+
+Enter your Choice:-3
+
+
+
+**********DIRECTION OF HEAD MOVEMENT************
+1:-HEAD IS MOVING IN REVERSE DIRECTION
+2:-HEAD IS MOVING IN FORWARD DIRECTION
+****************************************************
+
+ENter Your Choice:-1
+
+ Wrong choice Entered...
+
+--------------------------------------------------
+ Received Tracks	Accessed Tracks		Steps Required
+----------------------------------------------------------
+	123			376			31
+	874			475			99
+	692			692			217
+	475			874			182
+	105			105			979
+	376			123			18
+
+---------------------------------------------------
+ Total Seek Time	1526
+----------------------------------------------------------
+
+***********SCHEDULING ALGORITHM*****************
+ 1.FCFS
+ 2.SSTF
+ 3.C-SCAN
+ 4.EXIT****************************************************
+
+Enter your Choice:-3
+
+
+
+**********DIRECTION OF HEAD MOVEMENT************
+1:-HEAD IS MOVING IN REVERSE DIRECTION
+2:-HEAD IS MOVING IN FORWARD DIRECTION
+****************************************************
+
+ENter Your Choice:-2
+
+^Z
+[1]+  Stopped                 ./a.out
+amol@amol-Aspire-5742:~$ gcc disk.c
+amol@amol-Aspire-5742:~$ ./a.out
+
+ Enter total no of Tracks:6
+Enter Requested Track No.s:-
+123
+874
+692
+475
+105
+376
+
+ Enter Initial Head Position:-345
+
+
+***********SCHEDULING ALGORITHM*****************
+ 1.FCFS
+ 2.SSTF
+ 3.C-SCAN
+ 4.EXIT****************************************************
+
+Enter your Choice:-3
+
+
+
+**********DIRECTION OF HEAD MOVEMENT************
+1:-HEAD IS MOVING IN REVERSE DIRECTION
+2:-HEAD IS MOVING IN FORWARD DIRECTION
+****************************************************
+
+ENter Your Choice:-1
+
+ Wrong choice Entered...
+
+--------------------------------------------------
+ Received Tracks	Accessed Tracks		Steps Required
+----------------------------------------------------------
+	123			376			31
+	874			475			99
+	692			692			217
+	475			874			182
+	105			105			979
+	376			123			18
+
+---------------------------------------------------
+ Total Seek Time	1526
+----------------------------------------------------------
+
+***********SCHEDULING ALGORITHM*****************
+ 1.FCFS
+ 2.SSTF
+ 3.C-SCAN
+ 4.EXIT****************************************************
+
+Enter your Choice:-3
+
+
+
+**********DIRECTION OF HEAD MOVEMENT************
+1:-HEAD IS MOVING IN REVERSE DIRECTION
+2:-HEAD IS MOVING IN FORWARD DIRECTION
+****************************************************
+
+ENter Your Choice:-2
+^Z
+[2]+  Stopped                 ./a.out
+amol@amol-Aspire-5742:~$ gcc disk.c
+amol@amol-Aspire-5742:~$ ./a.out
+
+ Enter total no of Tracks:9
+Enter Requested Track No.s:-
+27,129,110,186,147,41,10,64,120
+
+ Enter Initial Head Position:-
+
+***********SCHEDULING ALGORITHM*****************
+ 1.FCFS
+ 2.SSTF
+ 3.C-SCAN
+ 4.EXIT****************************************************
+
+Enter your Choice:-Wrong choice Entered...
+
+***********SCHEDULING ALGORITHM*****************
+ 1.FCFS
+ 2.SSTF
+ 3.C-SCAN
+ 4.EXIT****************************************************
+
+Enter your Choice:-amol@amol-Aspire-5742:~$ 1
+1: command not found
+amol@amol-Aspire-5742:~$ gcc disk.c
+amol@amol-Aspire-5742:~$ ./a.out
+
+ Enter total no of Tracks:9
+Enter Requested Track No.s:-
+27
+129
+110
+186
+147
+41
+10
+64
+120
+
+ Enter Initial Head Position:-100
+
+
+***********SCHEDULING ALGORITHM*****************
+ 1.FCFS
+ 2.SSTF
+ 3.C-SCAN
+ 4.EXIT****************************************************
+
+Enter your Choice:-1
+
+
+---------------------------------------------------
+ Received Tracks	Accessed Tracks		Steps Required
+	27			27			73
+	129			129			102
+	110			110			19
+	186			186			76
+	147			147			39
+	41			41			106
+	10			10			31
+	64			64			54
+	120			120			56
+
+---------------------------------------------------
+ Total Seek Time	556
+----------------------------------------------------
+
+***********SCHEDULING ALGORITHM*****************
+ 1.FCFS
+ 2.SSTF
+ 3.C-SCAN
+ 4.EXIT****************************************************
+
+Enter your Choice:-2
+
+
+--------------------------------------------------
+ Received Tracks	Accessed Tracks		Steps Required
+----------------------------------------------------------
+	27			110			10
+	129			120			10
+	110			129			9
+	186			147			18
+	147			186			39
+	41			64			122
+	10			41			23
+	64			27			14
+	120			10			17
+
+---------------------------------------------------
+ Total Seek Time	262
+----------------------------------------------------------
+
+***********SCHEDULING ALGORITHM*****************
+ 1.FCFS
+ 2.SSTF
+ 3.C-SCAN
+ 4.EXIT****************************************************
+
+Enter your Choice:-3
+
+
+
+**********DIRECTION OF HEAD MOVEMENT************
+1:-HEAD IS MOVING IN REVERSE DIRECTION
+2:-HEAD IS MOVING IN FORWARD DIRECTION
+****************************************************
+
+ENter Your Choice:-1
+
+ Wrong choice Entered...
+
+--------------------------------------------------
+ Received Tracks	Accessed Tracks		Steps Required
+----------------------------------------------------------
+	27			110			10
+	129			120			10
+	110			129			9
+	186			147			18
+	147			186			39
+	41			10			196
+	10			27			17
+	64			41			14
+	120			64			23
+
+---------------------------------------------------
+ Total Seek Time	336
+----------------------------------------------------------
+
+***********SCHEDULING ALGORITHM*****************
+ 1.FCFS
+ 2.SSTF
+ 3.C-SCAN
+ 4.EXIT****************************************************
+
+Enter your Choice:-4
+amol@amol-Aspire-5742:~$ gcc disk.c
+amol@amol-Aspire-5742:~$ ./a.out
+
+ Enter total no of Tracks:10
+Enter Requested Track No.s:-
+84
+147
+91
+177
+286
+341
+78
+488
+38
+130
+
+ Enter Initial Head Position:-255
+
+
+***********SCHEDULING ALGORITHM*****************
+ 1.FCFS
+ 2.SSTF
+ 3.C-SCAN
+ 4.EXIT****************************************************
+
+Enter your Choice:-1
+
+
+---------------------------------------------------
+ Received Tracks	Accessed Tracks		Steps Required
+	84			84			171
+	147			147			63
+	91			91			56
+	177			177			86
+	286			286			109
+	341			341			55
+	78			78			263
+	488			488			410
+	38			38			450
+	130			130			92
+
+---------------------------------------------------
+ Total Seek Time	1755
+----------------------------------------------------
+
+***********SCHEDULING ALGORITHM*****************
+ 1.FCFS
+ 2.SSTF
+ 3.C-SCAN
+ 4.EXIT****************************************************
+
+Enter your Choice:-2
+
+
+--------------------------------------------------
+ Received Tracks	Accessed Tracks		Steps Required
+----------------------------------------------------------
+	84			286			31
+	147			341			55
+	91			488			147
+	177			177			311
+	286			147			30
+	341			130			17
+	78			91			39
+	488			84			7
+	38			78			6
+	130			38			40
+
+---------------------------------------------------
+ Total Seek Time	683
+----------------------------------------------------------
+
+***********SCHEDULING ALGORITHM*****************
+ 1.FCFS
+ 2.SSTF
+ 3.C-SCAN
+ 4.EXIT****************************************************
+
+Enter your Choice:-3
+
+
+
+**********DIRECTION OF HEAD MOVEMENT************
+1:-HEAD IS MOVING IN REVERSE DIRECTION
+2:-HEAD IS MOVING IN FORWARD DIRECTION
+****************************************************
+
+ENter Your Choice:-1
+
+ Wrong choice Entered...
+
+--------------------------------------------------
+ Received Tracks	Accessed Tracks		Steps Required
+----------------------------------------------------------
+	84			286			31
+	147			341			55
+	91			488			147
+	177			38			526
+	286			78			40
+	341			84			6
+	78			91			7
+	488			130			39
+	38			147			17
+	130			177			30
+
+---------------------------------------------------
+ Total Seek Time	898
+----------------------------------------------------------
+
+***********SCHEDULING ALGORITHM*****************
+ 1.FCFS
+ 2.SSTF
+ 3.C-SCAN
+ 4.EXIT****************************************************
+
+Enter your Choice:-4
+amol@amol-Aspire-5742:~$ gcc disk.c
+amol@amol-Aspire-5742:~$ ./a.out
+
+ Enter total no of Tracks:6
+Enter Requested Track No.s:-
+811
+348
+153
+968
+407
+500
+
+ Enter Initial Head Position:-756
+
+
+***********SCHEDULING ALGORITHM*****************
+ 1.FCFS
+ 2.SSTF
+ 3.C-SCAN
+ 4.EXIT****************************************************
+
+Enter your Choice:-1
+
+
+---------------------------------------------------
+ Received Tracks	Accessed Tracks		Steps Required
+	811			811			55
+	348			348			463
+	153			153			195
+	968			968			815
+	407			407			561
+	500			500			93
+
+---------------------------------------------------
+ Total Seek Time	2182
+----------------------------------------------------
+
+***********SCHEDULING ALGORITHM*****************
+ 1.FCFS
+ 2.SSTF
+ 3.C-SCAN
+ 4.EXIT****************************************************
+
+Enter your Choice:-2
+
+
+--------------------------------------------------
+ Received Tracks	Accessed Tracks		Steps Required
+----------------------------------------------------------
+	811			811			55
+	348			968			157
+	153			500			468
+	968			407			93
+	407			348			59
+	500			153			195
+
+---------------------------------------------------
+ Total Seek Time	1027
+----------------------------------------------------------
+
+***********SCHEDULING ALGORITHM*****************
+ 1.FCFS
+ 2.SSTF
+ 3.C-SCAN
+ 4.EXIT****************************************************
+
+Enter your Choice:-3
+
+
+
+**********DIRECTION OF HEAD MOVEMENT************
+1:-HEAD IS MOVING IN REVERSE DIRECTION
+2:-HEAD IS MOVING IN FORWARD DIRECTION
+****************************************************
+
+ENter Your Choice:-1
+
+ Wrong choice Entered...
+
+--------------------------------------------------
+ Received Tracks	Accessed Tracks		Steps Required
+----------------------------------------------------------
+	811			811			55
+	348			968			157
+	153			153			1121
+	968			348			195
+	407			407			59
+	500			500			93
+
+---------------------------------------------------
+ Total Seek Time	1680
+----------------------------------------------------------
+
+***********SCHEDULING ALGORITHM*****************
+ 1.FCFS
+ 2.SSTF
+ 3.C-SCAN
+ 4.EXIT****************************************************
+
+Enter your Choice:-          
+

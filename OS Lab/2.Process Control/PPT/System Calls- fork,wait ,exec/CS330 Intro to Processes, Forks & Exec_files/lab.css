@@ -1,0 +1,726 @@
+/*--------- HTML Redefinitions ---------*/
+/*t*/
+a 	{ color : #76aad9; font-family : arial, verdana, sans-serif; 
+	  font-style : normal; font-weight : bold; text-decoration : underline; }
+a:hover	{ text-decoration : underline; }
+
+/*t*/
+b	{ font-weight : bold; }
+body	{ margin: 0px; font-family : arial, verdana, sans-serif; 
+	   font-weight : normal;  background-color : #ffffff; }
+em	{ font-style : italic; font-weight: bold; }
+i	{ font-style : italic; }
+/*-------------
+p	{ font-size : 12px; font-family : arial, verdana, sans-serif; }
+strong	{ font-weight : bold; }
+ul	{ font-size : 12px; font-family : arial, verdana, sans-serif; line-height: 17px; }
+ol	{ font-size : 12px; font-family : arial, verdana, sans-serif; line-height: 17px; }
+blockquote	{ font-size : 12px; font-family : arial, verdana, sans-serif; }
+--------------------*/
+table, td, tr	{
+	color : #000000;
+	font-family : arial, verdana, sans-serif;
+	font-weight : normal;
+	font-size : 12px;
+	font-style : normal;
+/*	text-align : left;*/
+}
+
+
+/*--------- COOLjsMENU Styles ---------*/
+
+.topOn     { color : #605D96; font-family : arial, verdana, sans-serif; 
+		font-weight : bold; font-size : 12px; text-decoration : none; 
+		padding: 2px 4px; text-align : center; }
+.topOver   { color : #605D96; font-family : arial, verdana, sans-serif; 
+		font-weight : bold; font-size : 12px; text-decoration : none; 
+		padding: 2px 4px; text-align : center; }
+.topOn2	   { color : #605D96; font-family : arial, verdana, sans-serif; 
+		font-weight : bold; font-size : 12px; text-decoration : none; 
+		text-align : center; }
+.topCenterOn  { color : #605D96; font-family : arial, verdana, sans-serif; 
+		font-weight : bold; font-size : 12px; text-decoration : none; 
+		padding : 10px 2px 2px; text-align : center; }
+.topCenterOver { color : #605D96; font-family : arial, verdana, sans-serif; 
+		 font-weight : bold; font-size : 12px; text-decoration : none; 
+		 padding : 10px 2px 2px; text-align : center; }
+.subLevelOn    { color : #605D96; font-family : arial, verdana, sans-serif; 
+		 font-weight : normal; font-size : 12px; text-decoration : none; 
+		 padding-right : 4px; padding-left : 4px; }
+.subLevelOver  { color : #605D96; font-family : arial, verdana, sans-serif; 
+		 font-weight : normal; font-size : 12px; text-decoration : none; 
+		 padding-right : 4px; padding-left : 4px; }
+.sideOn        { color : #669966; font-family : arial, verdana, sans-serif; 
+		 font-weight : bold; font-size : 12px; text-decoration : none; 
+		 padding: 2px 8px; }
+.sideOver     { color : #669966; font-family : arial, verdana, sans-serif; 
+		font-weight : bold; font-size : 12px; text-decoration : none; 
+		padding: 2px 8px; }
+.portalOn     { color : #FFFFFF; font-family : arial, verdana, sans-serif; 
+		font-weight : bold; font-size : 12px; text-decoration : none; 
+		padding: 2px 8px; }
+.portalOver   { color : #FFFFFF; font-family : arial, verdana, sans-serif; font-weight : bold; font-size : 12px; text-decoration : none; padding: 2px 8px; }
+.subSideOn         { color : #669966; font-family : arial, verdana, sans-serif; font-size : 11px; text-decoration : none; padding : 4px 4px; }
+.subSideOver       { color : #669966; font-family : arial, verdana, sans-serif; font-size : 11px; text-decoration : none; padding : 4px 4px; }
+.sideMainOn        { color : #FFFFFF; font-family : arial, verdana, sans-serif; font-weight : normal; font-size : 14px; text-decoration : none; padding: 2px 8px; }
+.sideMainOver      { color : #0b5230; font-family : arial, verdana, sans-serif; font-weight : normal; font-size : 14px; text-decoration : none; padding: 2px 8px; }
+.subSideMainOn     { color : #FFFFFF; font-family : arial, verdana, sans-serif; font-size : 12px; text-decoration : none; padding-right : 4px; padding-left : 4px; }
+.subSideMainOver   { color : #0b5230; font-family : arial, verdana, sans-serif; font-size : 12px; text-decoration : none; padding-right : 4px; padding-left : 4px; }
+
+  .sideMenuPulloutLevel1_on		{ color : #FFFFFF; font-family : tahoma, verdana, sans-serif; font-weight : bold; font-size : 12px; text-decoration : none; padding: 2px 8px; }
+  .sideMenuPulloutLevel2_on   	{ color : #FFFFFF; font-family : tahoma, verdana, sans-serif; font-weight : normal; font-size : 11px; text-decoration : none; padding : 4px 4px; }
+  .sideMenuPulloutNull		   	{ cursor : default; }
+
+
+
+/*--------- COOLjsTREE Styles ---------*/
+
+  .nodeL1       		{ color : #605D96; font-family : arial, verdana, sans-serif; font-weight : bold; font-size : 12px; text-decoration : none; }
+  .nodeL1:hover 		{ text-decoration : underline; cursor : pointer; }
+  .nodeL2       		{ color : #000000; font-family : arial, verdana, sans-serif; font-weight : normal; font-size : 12px; text-decoration : none; }
+  .nodeL2:hover 		{ color : #FFFFFF; background-color: #605D96; text-decoration : underline; cursor : pointer; }
+  .nodeL3       		{ color : #000000; font-family : arial, verdana, sans-serif; font-weight : normal; font-size : 11px; text-decoration : none; }
+  .nodeL3:hover 		{ color : #FFFFFF; background-color: #605D96; text-decoration : underline; cursor : pointer; }
+  .nodeL3:active		{ color: #FFFFFF; text-decoration: underline; background-color: #605D96; }
+  
+  .nodeL1_w       		{ color : #FFFFFF; font-family : tahoma, arial, sans-serif; font-weight : bold; font-size : 12px; text-decoration : none; }
+  .nodeL1_w:hover 		{ text-decoration : underline; cursor : pointer; }
+  .nodeL2_w       		{ color : #FFFFFF; font-family : tahoma, arial, sans-serif; font-weight : normal; font-size : 11px; text-decoration : none; }
+  .nodeL2_w:hover 		{ color : #669966; background-color: #FFFFFF; text-decoration : underline; cursor : pointer; }
+  .nodeL3_w       		{ color : #FFFFFF; font-family : tahoma, arial, sans-serif; font-weight : normal; font-size : 11px; text-decoration : none; }
+  .nodeL3_w:hover 		{ color : #669966; background-color: #FFFFFF; text-decoration : underline; cursor : pointer; }
+
+
+
+/*--------- GENERAL STYLES ---------*/
+
+  .Arial11pxGrey	 	 { color : #999999; font-family : arial, arial, sans-serif; font-size : 11px; }
+  .Arial11pxPurple 	 	 { color : #605D96; font-family : arial, arial, sans-serif; font-size : 11px; }
+ a.askProf               { color : #669966; font-weight : normal; font-size : 11px; text-decoration : none; }
+ a.askProf:hover         { text-decoration : underline; }
+td.blueSideBarHead2      { color : #ffffff; font-family : arial narrow, arial, sans-serif; font-weight : bold; font-size : 15px; background-color : #336699; }
+  .bodyWhite          	 { color : #FFFFFF; font-family : arial, verdana, sans-serif; font-weight : normal; font-size : 12px; }
+ a.bodyWhite         	 { color : #FFFFFF; text-decoration : none; }
+ a.bodyWhite:hover   	 { color : #000000; text-decoration : underline; }
+ a.bodyWhite:visited 	 { color : #FFFFFF; text-decoration : none; }
+ a.bodyWhite:active  	 { color : #FFFFFF; text-decoration : underline; }
+  .bold               	 { font-weight : bold; }
+ul.bottomArrows			 { font-family : arial, verdana, sans-serif; line-height: 17px; list-style-image: url(/styles/arrNodeDownSmall.gif); }
+td.brownSideBarHead      { color : #ffffff; font-family : arial narrow, arial, sans-serif; font-weight : bold; font-size : 15px; background-color : #996666; }
+td.campusNews 			 { color : #000000; font-family : arial, verdana, sans-serif; font-weight : normal; font-size : 11px; font-style : normal; }
+td.campusNewsDate        { color : #666666; font-family : arial, verdana, sans-serif; font-weight : normal; font-size : 12px; font-style : normal; width : 140px; height : 20px; background-color : #cccc66; padding-left : 5px; text-align:center; } 
+td.campusNewsHeadline    { color : #000000; font-family : arial, verdana, sans-serif; font-weight : normal; font-size : 12px; font-style : normal; }
+ a.campusNewsHeadline    { color : #000000; font-family : arial, verdana, sans-serif; font-weight : bold; font-size : 12px; font-style : normal; text-decoration : underline; }
+ a.campusNewsHeadline:hover    { color : #004C37; }
+  .caption               { color : #000000; font-family : arial, verdana, sans-serif; font-weight : normal; font-size : 11px; font-style : normal; text-decoration : none; }
+ a.contentFooter		 { color : #605d96; font-family : tahoma, arial, sans-serif; font-weight : bold; font-size : 11px; text-decoration : none; }
+ a.contentFooter2		 { color : #666666; font-family : arial, verdana, sans-serif; font-weight : bold; font-size : 12px; font-style : normal; text-decoration : none; }
+ a.contentFooter:hover 	 { text-decoration : underline; }
+td.contentFooter 		 { background-color : #ecde7d; 	height : 20px;}
+ a.darkGreyBold			 { color : #666666; font-weight : bold; text-decoration : none; }
+ a.darkGreyBold:hover	 { font-weight : bold; text-decoration : underline; }
+ a.darkGreyNormal        { color : #666666; font-weight : normal; text-decoration : none; }
+ a.darkGreyNormal:hover  { font-weight : normal; text-decoration : underline; }
+  .deptText				 { color : #ffffff; font-family : georgia, serif; font-size : 26px; letter-spacing : 1px; }
+  .deptTextShadow		 { color : #000000; font-family : georgia, serif; font-size : 26px; letter-spacing : 1px; }
+  .deptText2			 { color : #ffffff; font-family : georgia, serif; font-size : 20px; letter-spacing : 1px; }
+  .deptTextShadow2		 { color : #000000; font-family : georgia, serif; font-size : 20px; letter-spacing : 1px; }
+  .fontsize11px 		 { font-size : 11px; }
+ a.fontsize11px 		 { color : #ffffff; font-size : 11px; }
+  .fontsize17px 	 	 { font-size : 17px; }
+ a.footer 				 { color : #000000; font-family : tahoma, verdana, sans-serif; font-weight : normal; font-size : 11px; font-style : normal; text-decoration : none; }
+ a.footer:hover 		 { text-decoration : underline; }
+td.footer     			 { color : #000000; font-family : tahoma, verdana, sans-serif; font-weight : normal; font-size : 11px; font-style : normal; }
+ a.footerEmail 			 { color : #669966; font-family : tahoma, verdana, sans-serif; font-size : 11px; text-decoration : none; }
+ a.footerEmail:hover 	 { text-decoration : underline; }
+td.greenSideBarHead      { color : #ffffff; font-family : arial narrow, arial, sans-serif; font-weight : bold; font-size : 15px; background-color : #89B489; }
+td.greenSideBarHead2     { color : #ffffff; font-family : arial narrow, arial, sans-serif; font-weight : bold; font-size : 15px; background-color : #669966; }
+td.lineHeight20      	 { line-height : 20px; }
+ a.linkOnLightGrey		 { color : #CC3333; font-family : arial, verdana, sans-serif; font-weight : bold; font-style : normal; text-decoration : none; }
+td.liteGreen  			 { color : #6f946b; font-family : arial, verdana, sans-serif; font-weight : bold; font-size : 13px; font-style : normal; }
+ a.newsLinks  			 { color : #0b5230; font-family : arial, verdana, sans-serif; font-weight : bold; font-size : 12px; font-style : normal; text-decoration : none; }
+ a.newsLinks:hover 		 { text-decoration : underline; }
+  .pageTitle      		 { color : #333366; font-family : georgia, times, serif; font-weight : normal; font-size : 19px; font-style : normal; }
+  .pageTitleArial	 	 { color : #333366; font-family : arial, verdana, sans-serif; font-weight : bold; font-size : 17px; }
+ a.pageTitleArial		 { color : #333366; text-decoration : none; }
+ a.pageTitleArial:hover  { color : #333366; text-decoration : underline; }
+  .pageTitleWhite		 { color : #FFFFFF; font-family : georgia, times, serif; font-weight : normal; font-size : 19px; font-style : normal; }
+ a.pageTitleWhite		 { color : #FFFFFF; font-family : georgia, times, serif; font-size :20px; text-decoration : none; }
+ a.pageTitleWhite:visited	{ text-decoration : none; }
+ a.pageTitleWhite:hover		{ text-decoration : underline; }
+  .pathTahoma			 { color : #666666; font-family : tahoma, arial, sans-serif; font-weight : normal; font-size : 11px; font-style : normal; }
+ a.pathTahoma  			 { color : #666666; font-family : tahoma, arial, sans-serif; font-weight : normal; font-size : 11px; font-style : normal; text-decoration : none; }
+ a.pathTahoma:hover 	 { text-decoration : underline; }
+  .pathSelected			 { color : #000000; font-family : tahoma, arial, sans-serif; font-size : 11px; font-weight : bold; background-color : #E4E4A1; padding-top: 2px; padding-bottom: 4px; padding-left: 2px; padding-right: 2px; }
+/*t*/
+td.path 				 { color : #666666; font-family : tahoma, arial, sans-serif; font-size : 11px; background-color : transparent; height : 20px; padding-left : 5px; }
+ a.path  				 { color : #666666; font-family : tahoma, arial, sans-serif; font-size : 11px; font-weight : normal; background-color : transparent; text-decoration : none; }
+/*t*/
+ a.path:hover 			 { text-decoration : underline; }
+ul.pdfIcon	 			 { font-family : arial, verdana, sans-serif; line-height: 25px; list-style-image: url(/styles/bullet_pdf.gif); }
+  .posted       	 	 { color : #333366; font-family : arial, verdana, sans-serif; font-weight : normal; font-size : 10px; font-style : normal; text-transform: uppercase; }
+td.purpleSideBarHead     { color : #ffffff; font-family : arial narrow, arial, sans-serif; font-weight : bold; font-size : 17px; width : 181px; height : 20px; padding-left : 10px; vertical-align:bottom; letter-spacing:3px; line-height : 14px; background-color : #8f8fb5; }
+td.purpleSideBarHead2    { color : #ffffff; font-family : arial narrow, arial, sans-serif; font-weight : bold; font-size : 15px; background-color : #9A9AB6; }
+  .redHighlight       	 { color : #990000; }
+  .redHighlight17pxBold	 { color : #990000; font-weight : bold; font-size : 17px; }
+ a.sideFeatureLink       { color : #000000; font-weight : bold; font-size : 11px; text-decoration : none; }
+ a.sideFeatureLink:hover { color : #004C37; text-decoration : underline; }
+td.small      			 { color : #605D96; font-family : arial, verdana, sans-serif; font-weight : normal; font-size : 11px; font-style : normal; }
+  .smallBlack            { color : #000000; font-family : arial, verdana, sans-serif; font-weight : normal; font-size : 11px; font-style : normal; text-decoration : none; }
+ a.smallBlack 			 { color : #000000; font-family : arial, verdana, sans-serif; font-weight : bold; font-size : 11px; font-style : normal; text-decoration : none; }
+td.smallBlack 			 { color : #000000; font-family : arial, verdana, sans-serif; font-weight : normal; font-size : 11px; font-style : normal; padding-left : 10px; }
+  .smallBlueBold         { color : #336699; font-family : arial, verdana, sans-serif; font-weight : bold; font-size : 11px; font-style : normal; text-decoration : none; }
+ a.smallLinks 			 { color : #605D96; font-family : arial, verdana, sans-serif; font-weight : bold; font-size : 11px; font-style : normal; text-decoration : none; }
+ a.smallLinks:hover 	 { color : #0b5230; }
+ a.smallGreen 			 { color : #669966; font-family : arial, verdana, sans-serif; font-weight : bold; font-size : 11px; font-style : normal; text-decoration : none; }
+td.smallGreen 			 { color : #669966; font-family : arial, verdana, sans-serif; font-weight : normal; font-size : 11px; font-style : normal; }
+ a.smallName			 { color : #000000; font-family : arial, verdana, sans-serif; font-weight : normal; font-style : normal; text-decoration : underline; }
+ a.smallName:hover		 { font-weight : bold; }
+ a.smallWhite 			 { color : #ffffff; font-family : arial, verdana, sans-serif; font-weight : normal; font-size : 11px; font-style : normal; text-decoration : none; }
+ a.smallWhite:hover 	 { text-decoration : none; }
+  .subPageTitle 		 { color : #333366; font-family : georgia, times, serif; font-weight : bold; font-size : 12px; font-style : normal; }
+td.tan        			 { color : #cccc66; font-family : arial, verdana, sans-serif; font-weight : bold; font-size : 14px; font-style : normal; }
+td.tenWhite   			 { color : #ffffff; font-family : arial, verdana, sans-serif; font-weight : normal; font-size : 11px; font-style : normal; }
+
+/*----------------------------------------------------------------------------------*/
+
+/* INPUT STYLES */
+
+input.search 			 { color : #605D96; font-family : arial, verdana, sans-serif; font-weight : normal; font-size : 12px; font-style : normal; width : 110px; border:1px solid; border-color : #605D96; background-color : #ffffff; }
+input.searchLibrary 	 { color : #000000; font-family : arial, verdana, sans-serif; font-weight : normal; font-size : 12px; font-style : normal; width : 180px; background-color : #ffffff; }
+
+/* END OF INPUT STYLES */
+
+
+/*----------------------------------------------------------------------------------*/
+  .Tahoma11pxBlack	 	 { color : #000000; font-family : tahoma, arial, sans-serif; font-size : 11px; }
+  .Tahoma11pxBlackBold	 { color : #000000; font-family : tahoma, arial, sans-serif; font-weight : bold; font-size : 11px; }
+  .Tahoma11pxBlue	 	 { color : #333366; font-family : tahoma, arial, sans-serif; font-size : 11px; }
+  .Tahoma11pxBlueBold	 { color : #333366; font-family : tahoma, arial, sans-serif; font-weight : bold; font-size : 11px; }
+  .Tahoma11pxBrown	 	 { color : #666633; font-family : tahoma, arial, sans-serif; font-size : 11px; }
+  .Tahoma11pxBrownBold	 { color : #666633; font-family : tahoma, arial, sans-serif; font-weight : bold; font-size : 11px; }
+  .Tahoma11pxGreen	 	 { color : #669966; font-family : tahoma, arial, sans-serif; font-size : 11px; }
+  .Tahoma11pxGreenBold	 { color : #669966; font-family : tahoma, arial, sans-serif; font-weight : bold; font-size : 11px; }
+  .Tahoma11pxPurple	 	 { color : #605D96; font-family : tahoma, arial, sans-serif; font-size : 11px; }
+  .Tahoma11pxPurpleBold	 { color : #605D96; font-family : tahoma, arial, sans-serif; font-weight : bold; font-size : 11px; }
+  .Tahoma11pxWhite	 	 { color : #FFFFFF; font-family : tahoma, arial, sans-serif; font-size : 11px; }
+  .Tahoma11pxWhiteBold	 { color : #FFFFFF; font-family : tahoma, arial, sans-serif; font-weight : bold; font-size : 11px; }
+  .Tahoma12pxBlack	 	 { color : #000000; font-family : tahoma, arial, sans-serif; font-size : 12px; }
+  .Tahoma12pxBlackBold	 { color : #000000; font-family : tahoma, arial, sans-serif; font-weight : bold; font-size : 12px; }
+  .Tahoma12pxBlue	 	 { color : #333366; font-family : tahoma, arial, sans-serif; font-size : 12px; }
+  .Tahoma12pxBlueBold	 { color : #333366; font-family : tahoma, arial, sans-serif; font-weight : bold; font-size : 12px; }
+  .Tahoma12pxBrown	 	 { color : #666633; font-family : tahoma, arial, sans-serif; font-size : 12px; }
+  .Tahoma12pxBrownBold	 { color : #666633; font-family : tahoma, arial, sans-serif; font-weight : bold; font-size : 12px; }
+  .Tahoma12pxGreen	 	 { color : #669966; font-family : tahoma, arial, sans-serif; font-size : 12px; }
+  .Tahoma12pxGreenBold	 { color : #669966; font-family : tahoma, arial, sans-serif; font-weight : bold; font-size : 12px; }
+  .Tahoma12pxPurple	 	 { color : #605D96; font-family : tahoma, arial, sans-serif; font-size : 12px; }
+  .Tahoma12pxPurpleBold	 { color : #605D96; font-family : tahoma, arial, sans-serif; font-weight : bold; font-size : 12px; }
+  .Tahoma12pxWhite	 	 { color : #FFFFFF; font-family : tahoma, arial, sans-serif; font-size : 12px; }
+  .Tahoma12pxWhiteBold	 { color : #FFFFFF; font-family : tahoma, arial, sans-serif; font-weight : bold; font-size : 12px; }
+.code
+	{
+	border:           1px solid #FF0000;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #0000CC;
+	}
+.Xmp
+        { 
+	background-color: #FFFFFF; 
+	font-family:	  monospace,fixed,serif; 
+	color:		  blue; 
+	width:		  270px;
+	white-space:	  pre; 
+        font-size:	  10pt; 
+	border:		  double navy; 
+        margin-left:	  1em; 
+	margin-right:	  1em; 
+        }
+ .Xmp1
+        { 
+	background-color: #FFFFFF; 
+	font-family:	  monospace,fixed,serif; 
+	color:		  blue; 
+	width:		  470px;
+	white-space:	  pre; 
+        font-size:	  10pt; 
+	border:		  double navy; 
+        margin-left:	  1em; 
+	margin-right:	  1em; 
+        }
+
+  .bodyWhite_bold          	 { color : #FFFFFF; font-family : arial, verdana, sans-serif; font-weight : bolder; font-size : 13px; }
+ .bodyblack_bold          	 { color : #000000; font-family : arial, verdana, sans-serif; font-weight : bolder; font-size : 13px; }
+ 
+  .bodyblue_bold          	 { color : #0000FF; font-family : arial, verdana, sans-serif; font-weight : bolder; font-size : 13px; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* style sheet for CS labs.  Written by Qiang Hu 
+<h2>    Page    </h2>
+    ====    
+<Xmp>*/
+
+/*</Xmp>
+
+<h2>    Links   </h2>
+    =====   
+<Xmp>*/
+
+
+/*</Xmp>
+<h2>    Headings and Text Elements        </h2>
+    ========        
+<Xmp>*/
+H1 	{
+	FONT-FAMILY: 	Arial, Helvetica, sans-serif; 
+	COLOR: navy;
+	FONT-WEIGHT: bold;
+	}
+H2 	{
+	COLOR: navy; 
+	FONT-FAMILY:	Arial, Helvetica, sans-serif; 
+	FONT-WEIGHT: bold;
+	}
+H3 	{
+	COLOR: navy; 
+	FONT-FAMILY:	Arial, Helvetica, sans-serif; 
+	FONT-WEIGHT: bold;
+	}
+H4 	{
+	COLOR: navy; 
+	FONT-FAMILY:	Arial, Helvetica, sans-serif; 
+	FONT-WEIGHT: bold;
+	}
+H5 	{
+	COLOR: navy; 
+	FONT-FAMILY:	Arial, Helvetica, sans-serif; 
+	FONT-WEIGHT: bold;
+	}
+
+p, tr, thead, tfoot, th, td, dl, ol, ul, blockquote, br 
+	{ 
+	font-family: Arial, Helvetica, sans-serif 
+	}
+
+
+.teeny  {
+        font-family     :       Arial, Helvetica, sans-serif;
+        font-size       :       12pt;
+	}
+/*</Xmp>
+
+<h2>	Navigation 	</h2>
+ 	======	
+<Xmp>*/
+.icomtitle  
+	{
+	font-family	:Arial, Helvetica, sans-serif;
+	font-size	:12pt;
+	color		:#FFFFFF;
+	background	:transparent;
+	line-height	:.1em;
+	}
+
+.icomlink	
+	{
+	font-family	:Arial, Helvetica, sans-serif;
+	font-size	:12pt;
+	}
+
+.siteNavHead 
+	{
+	COLOR: #000033;
+	FONT-SIZE: 12pt;
+	FONT-WEIGHT: bold
+	}
+.siteNavLink 
+	{
+	COLOR: #000033;
+	FONT-SIZE: 9pt
+	}
+.siteNavTD 
+	{
+	BACKGROUND-COLOR: #ffffcc
+	}
+/*</Xmp>
+
+<h2>	Header Elements	</h2>
+	======	
+<Xmp>*/
+.gold
+	{
+	background-color: #ffcc33;
+	}
+/*</xmp>
+
+<h2>    Author  </h2>
+    ======  
+<Xmp>*/
+.Author      
+	{
+	font-size	:	12pt;
+	font-style	:	italic;
+	font-weight	:	bold;
+	font-family	:	Arial, Helvetica, sans-serif; 
+    }
+/*</Xmp>
+<h2>    Abstract        </h2>
+    ==================
+
+<Xmp>*/
+.Abstract       
+	{
+	background-color: #eeeedd;
+	border-width : 2px;
+	border-color : #ffcc33;
+	border-style : solid;
+	/*padding : 10px;
+	font-size: 12pt;
+	/*font-weight: bold;*/
+	color	:	#660000;
+	}
+/*</Xmp>
+
+
+<h2>    eXaMPle Screen  </h2>
+    ==================
+
+<Xmp>*/
+pre.Xmp, pre 
+        { 
+	background-color: #FFFFFF; 
+	font-family:	  monospace,fixed,serif; 
+	color:		  blue; 
+	width:		  700px;
+	white-space:	  pre; 
+        font-size:	  10pt; 
+	border:		  double navy; 
+        margin-left:	  1em; 
+	margin-right:	  1em; 
+        }
+
+pre.Code
+        {
+        background-color: #F8F8F0;
+        font-family:	  monospace,fixed,serif;
+        color:		  #0000C0;
+        width:		  700px;
+        white-space:	  pre;
+        font-size:	  10pt;
+        border:		  solid 3px red;
+        margin-left:	  1em;
+        margin-right:	  1em;
+        }
+
+code
+	{
+        color:            blue;
+        border:           solid 1px red;
+        font-family:      monospace, fixed, serif;
+	font-style:	  normal; 
+        white-space:	  normal;
+	}
+var          
+	{ 
+	font-family:	  monospace, fixed, serif; 
+	font-style:	  normal; 
+	color:		  blue; 
+	font-size:	  12pt;
+	}
+
+var.Code
+        {
+        color:            blue;
+        border:           solid 1px red;
+        font-family:      monospace, fixed, serif;
+        font-style:       normal;
+        white-space:      normal;
+        }
+
+tt
+        {
+        font-family:	  monospace, fixed, serif;
+        font-size:	  10pt;
+        }
+
+tt.Code
+        {
+        color:            blue;
+        border:           solid 1px red;
+        font-family:      monospace, fixed, serif;
+        font-style:       normal;
+        white-space:      normal;
+        }
+
+DIV.example
+	{ 
+	margin-left:	  2em;
+	margin-right:	  2em;
+	border:		  solid 2px #003000;
+	}
+/*</Xmp>
+<h2>    Look-up Table   </h2>
+    ==================
+
+        Resource tables, link in left cell and annotation in the right cell.
+<p>
+        [!      Left column     !|      Right column    |]
+        [!      <a href="">Left column</a>     !|      <a href="">Right column</a>    |]
+<Xmp>*/
+TH.LuT  A       
+	{
+	color:          #ff0000;
+	background:	transparent;
+	}
+TH.LuT
+	{
+	background:     #ffcc33;
+	color:          #000000;
+	}
+TD.LuT  A
+	{
+	color:          #ff0000;
+	background:	transparent;
+	}
+TD.LuT
+	{
+	background:     #eeeedd;
+	color:          #000000;
+	}
+/*</Xmp>
+<h2>    Information Panel       </h2>
+    ==========================
+<div    class=Info>
+        DIV Emphasises a block of stuff.
+        This is <a class=Info href="/">The WDVL</a>.
+</div>
+<table><tr>
+<th class=Info>
+        TH Emphasises a block of stuff.
+        This is <a class=Info href="/">The WDVL</a>.
+</th>
+<td class=Info>
+        TD Emphasises a block of stuff.
+        This is <a class=Info href="/">The WDVL</a>.
+</td>
+</tr></table>
+<Xmp>*/
+TH.Info, TD.Info
+	{
+	background:     #ffffcc;
+	color:          #660000;
+	font-family:    Arial, Helvetica, sans-serif; 
+	font-size:      12pt;
+	}
+TH.Info A, TD.Info A
+	{
+	background:     white;
+	color:          #ff6600;        
+	}
+Div.Info, P.Info
+	{
+	background:     #ffffcc;
+	color:          #990033;
+	text-align:     left;
+	border:         blue;
+	padding:        1%;
+	font-family:    Arial, Helvetica, sans-serif; 
+	font-size:      12pt;
+	}
+Div.Info A
+	{
+	background:     white;
+	color:          #ff6600;        
+	}
+/*</Xmp>
+<h2>    HiLite  </h2>
+    ==========
+
+        <span class=HL>Just like those yellow markers...</span>
+<Xmp>*/
+.HL
+	{
+	background:     #ffff99;
+	color:          #000000;
+	}
+TD.HL
+	{
+	background:     #ccffff;
+	color:          #000000;
+	}
+/*</Xmp>
+<h2>    Name/Value Tables       </h2>
+    =================
+<center>
+<table  cellpadding=8>
+<tr><th class=Type> Type        </th><th class=Type>Meaning     </th></tr>
+<tr><th class=Name> Name        </th><th class=Value>An identifier</th></tr>
+<tr><th class=Name> Value       </th><th class=Value>Its contents</th></tr>
+</table>
+</center>
+<Xmp>*/
+.Type
+	{
+	background:     #cccccc;
+	color:          #660000;
+	}
+.Name
+	{
+	background:     #eeeeee;
+	color:          #660000;
+	vertical-align: top;
+	text-align:     right;
+	}
+.Value
+	{
+	background:     #eeeeee;
+	color:          #000066;
+	}
+/*</Xmp>
+<h2>    Drop    </h2>
+    ==========
+        @Drop(Drop) sets off a word or phrase like this.
+        <br clear=all>
+<Xmp>*/
+.Drop   
+	{
+	background:     #333366;
+	color:          #ffcc33;
+	font-family:    Arial, Helvetica, sans-serif;
+	font-size	:	16pt;
+	font-weight	:	bold;
+	}
+/*</Xmp>
+<h2>    Buttons </h2>
+    ==========
+        <table><tr><td class=Button>
+        See the menu bar at bottom.
+        </td></tr>
+        </table>
+<Xmp>*/
+A.Button:hover
+	{       color:  #ff6600;
+	background:	transparent;
+	}
+A.Button
+	{
+	text-decoration:        none;
+	color:          #003366;
+	background:     #ffcc33;
+	}
+.Button
+	{
+	text-align:     center;
+	text-decoration:        none;
+	color:          #003366;
+	background:     #ffcc33;
+	border-top:     2px solid #ffff99;
+	border-left:    2px solid #ffff99;
+	border-right:   2px solid #cc9933;
+	border-bottom:  2px solid #cc9933;
+	font-family:    Arial, Helvetica, sans-serif;
+	}
+/*</Xmp>
+<h2>    Banners </h2>
+    ==========
+        <table><tr><td class=Banner>
+        The Web Developer's Virtual Library
+        </td></tr>
+        </table>
+<Xmp>*/
+TH.Banner
+	{
+	color:	black;	
+	background:     #ffcc33;
+	}
+.Banner 
+	{
+    margin-left:    0;
+    text-align:     center;
+    text-decoration:        none;
+    color:          #003366;
+    background:     #ffcc33;
+    border-top:     4px solid #ffff99;
+    border-left:    4px solid #ffff99;
+    border-right:   4px solid #cc9933;
+    border-bottom:  4px solid #cc9933;
+    font-family:    Arial, Helvetica, sans-serif;
+    }
+/*</Xmp>
+<h2>    Navigation Links        </h2>
+    ================        
+<Xmp>*/
+TH.Nav  
+	{
+	background:     #0000cc;        
+	color:          #ff9900;
+	}
+TH.Menu 
+	{
+	background:     #3366cc;        
+	color:          #ff9900;
+	}
+A.Menu:hover
+	{
+	color:          #ff6600;
+	background: 	transparent	
+	}
+A.HoMe:hover
+	{
+	color:          #ff6600;
+	background:  	transparent
+	}
+A.Menu
+	{
+	background:     white;
+	color:          #ffcc33;
+	font-family:    Arial, Helvetica, sans-serif;
+	font-size:      smaller;
+	text-decoration:        none;
+	}
+A.HoMe
+	{
+	background:     white;
+	color:          #ffcc33;
+	font-family:    Arial, Helvetica, sans-serif;
+	text-decoration:        none;
+	}
+/*</Xmp>
+
+
+*/
+.PUN	{
+	font-family	:	Arial, Helvetica, sans-serif; 
+	background	:	#ffcc33;
+	color		:	green;
+	}
+.navb  {
+	font-family	:	Arial, Helvetica, sans-serif;
+	font-size	:	12pt;
+}
+
+.red_text {
+	color: #F00;
+}
+
+.hidden_answer {
+	color: #000;
+	background-color: #000;
+        padding: 5px;
+}
+
+.hidden_answer:hover {
+	color: #AAA;
+	background-color: #000;
+}

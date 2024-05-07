@@ -1,0 +1,78 @@
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<pthread.h>
+#include<semaphore.h>
+#include<unistd.h>
+#include<sys/types.h>
+
+pthread_mutex_t x,wsem;
+pthread_t r,w;
+int readcount;
+int writecount;
+
+void init()
+{
+	readcount=0;
+	writecount=0;
+	pthread_mutex_init(&x,NULL);
+	pthread_mutex_init(&wsem,NULL);
+}
+
+void * reader (void * param)
+{
+	int waittime;
+	waittime = rand() % 5;
+        printf("\nReader is trying to enter");
+        pthread_mutex_lock(&x);
+        readcount++;
+        if(readcount==1)
+        pthread_mutex_lock(&wsem);
+        printf("\n\t%d Reader is inside.. ",readcount);
+        pthread_mutex_unlock(&x);
+        sleep(waittime);
+        pthread_mutex_lock(&x);
+        readcount--;
+        if(readcount==0)
+        	pthread_mutex_unlock(&wsem);
+        pthread_mutex_unlock(&x);
+        printf("\n\t\t%d Reader is Leaving..",readcount+1);
+}  
+
+void * writer (void * param)
+{
+	int waittime;
+	waittime=rand() % 3;
+	printf("\nWriter is trying to enter..");
+	writecount++;
+	pthread_mutex_lock(&wsem);
+	printf("\n%d Writer has entered",writecount);
+	sleep(waittime);
+	pthread_mutex_unlock(&wsem);
+	writecount--;
+	printf("\n\t%d Writer is leaving..",writecount+1);
+        sleep(7);
+        exit(0);
+}
+int main()
+{
+	int rn,wn,i;
+	init();
+	printf("Enter the number of readers:");
+	scanf("%d",&rn);
+	printf("Enter the number of writers:");
+	scanf("%d",&wn);
+	for(i=0;i<rn;i++)
+		pthread_create(&r,NULL,reader,NULL);
+	for(i=0;i<wn;i++)
+		pthread_create(&r,NULL,writer,NULL);	
+	for(i=0;i<rn;i++)
+		pthread_join(r,NULL);
+	for(i=0;i<wn;i++)
+		pthread_join(w,NULL);
+	return 0;
+}
+
+
+*/
+

@@ -1,0 +1,671 @@
+
+<!-- saved from url=(0073)http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_23.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>The GNU C Library - Child Processes</title>
+</head><body><p>Go to the <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_22.html">previous</a>, <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_24.html">next</a> section.</p><p>
+</p><h1><a name="SEC401" href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_toc.html#SEC401">Child Processes</a></h1>
+<a name="IDX1680"></a>
+<p>
+<dfn>Processes</dfn> are the primitive units for allocation of system
+resources.  Each process has its own address space and (usually) one
+thread of control.  A process executes a program; you can have multiple
+processes executing the same program, but each process has its own copy
+of the program within its own address space and executes it
+independently of the other copies.
+<a name="IDX1681"></a>
+<a name="IDX1682"></a>
+</p><p>
+Processes are organized hierarchically.  Each process has a <dfn>parent
+process</dfn> which explicitly arranged to create it.  The processes created
+by a given parent are called its <dfn>child processes</dfn>.  A child
+inherits many of its attributes from the parent process.
+</p><p>
+This chapter describes how a program can create, terminate, and control
+child processes.  Actually, there are three distinct operations
+involved: creating a new child process, causing the new process to
+execute a program, and coordinating the completion of the child process
+with the original program.
+</p><p>
+The <code>system</code> function provides a simple, portable mechanism for
+running another program; it does all three steps automatically.  If you
+need more control over the details of how this is done, you can use the
+primitive functions to do each step individually instead.
+</p><p>
+<a name="IDX1683"></a>
+</p><h2><a name="SEC402" href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_toc.html#SEC402">Running a Command</a></h2>
+<p>
+The easy way to run another program is to use the <code>system</code>
+function.  This function does all the work of running a subprogram, but
+it doesn't give you much control over the details: you have to wait
+until the subprogram terminates before you can do anything else.
+</p><p>
+<a name="IDX1684"></a>
+<a name="IDX1685"></a>
+<u>Function:</u> int <b>system</b> <i>(const char *<var>command</var>)</i></p><p>
+This function executes <var>command</var> as a shell command.  In the GNU C
+library, it always uses the default shell <code>sh</code> to run the command.
+In particular, it searches the directories in <code>PATH</code> to find
+programs to execute.  The return value is <code>-1</code> if it wasn't
+possible to create the shell process, and otherwise is the status of the
+shell process.  See section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_23.html#SEC407">Process Completion</a>, for details on how this
+status code can be interpreted.
+<a name="IDX1686"></a>
+</p><p>
+The <code>system</code> function is declared in the header file
+<tt>`stdlib.h'</tt>.
+</p><p>
+<strong>Portability Note:</strong> Some C implementations may not have any
+notion of a command processor that can execute other programs.  You can
+determine whether a command processor exists by executing
+<code>system (NULL)</code>; if the return value is nonzero, a command
+processor is available.
+</p><p>
+The <code>popen</code> and <code>pclose</code> functions (see section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_14.html#SEC213">Pipe to a Subprocess</a>) are closely related to the <code>system</code> function.  They
+allow the parent process to communicate with the standard input and
+output channels of the command being executed.
+</p><p>
+</p><h2><a name="SEC403" href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_toc.html#SEC403">Process Creation Concepts</a></h2>
+<p>
+This section gives an overview of processes and of the steps involved in
+creating a process and making it run another program.
+<a name="IDX1687"></a>
+<a name="IDX1688"></a>
+</p><p>
+Each process is named by a <dfn>process ID</dfn> number.  A unique process ID
+is allocated to each process when it is created.  The <dfn>lifetime</dfn> of
+a process ends when its termination is reported to its parent process;
+at that time, all of the process resources, including its process ID,
+are freed.
+<a name="IDX1689"></a>
+<a name="IDX1690"></a>
+<a name="IDX1691"></a>
+<a name="IDX1692"></a>
+</p><p>
+Processes are created with the <code>fork</code> system call (so the operation
+of creating a new process is sometimes called <dfn>forking</dfn> a process).
+The <dfn>child process</dfn> created by <code>fork</code> is an exact clone of the
+original <dfn>parent process</dfn>, except that it has its own process ID.
+</p><p>
+After forking a child process, both the parent and child processes
+continue to execute normally.  If you want your program to wait for a
+child process to finish executing before continuing, you must do this
+explicitly after the fork operation, by calling <code>wait</code> or
+<code>waitpid</code> (see section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_23.html#SEC407">Process Completion</a>).  These functions give you
+limited information about why the child terminated--for example, its
+exit status code.
+</p><p>
+A newly forked child process continues to execute the same program as
+its parent process, at the point where the <code>fork</code> call returns.
+You can use the return value from <code>fork</code> to tell whether the program
+is running in the parent process or the child.
+<a name="IDX1693"></a>
+</p><p>
+Having several processes run the same program is only occasionally
+useful.  But the child can execute another program using one of the
+<code>exec</code> functions; see section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_23.html#SEC406">Executing a File</a>.  The program that the
+process is executing is called its <dfn>process image</dfn>.  Starting
+execution of a new program causes the process to forget all about its
+previous process image; when the new program exits, the process exits
+too, instead of returning to the previous process image.
+</p><p>
+</p><h2><a name="SEC404" href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_toc.html#SEC404">Process Identification</a></h2>
+<p>
+The <code>pid_t</code> data type represents process IDs.  You can get the
+process ID of a process by calling <code>getpid</code>.  The function
+<code>getppid</code> returns the process ID of the parent of the current
+process (this is also known as the <dfn>parent process ID</dfn>).  Your
+program should include the header files <tt>`unistd.h'</tt> and
+<tt>`sys/types.h'</tt> to use these functions.
+<a name="IDX1695"></a>
+<a name="IDX1694"></a>
+</p><p>
+<a name="IDX1696"></a>
+<u>Data Type:</u> <b>pid_t</b></p><p>
+The <code>pid_t</code> data type is a signed integer type which is capable
+of representing a process ID.  In the GNU library, this is an <code>int</code>.
+</p><p>
+<a name="IDX1697"></a>
+<u>Function:</u> pid_t <b>getpid</b> <i>(void)</i></p><p>
+The <code>getpid</code> function returns the process ID of the current process.
+</p><p>
+<a name="IDX1698"></a>
+<u>Function:</u> pid_t <b>getppid</b> <i>(void)</i></p><p>
+The <code>getppid</code> function returns the process ID of the parent of the
+current process.
+</p><p>
+</p><h2><a name="SEC405" href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_toc.html#SEC405">Creating a Process</a></h2>
+<p>
+The <code>fork</code> function is the primitive for creating a process.
+It is declared in the header file <tt>`unistd.h'</tt>.
+<a name="IDX1699"></a>
+</p><p>
+<a name="IDX1700"></a>
+<u>Function:</u> pid_t <b>fork</b> <i>(void)</i></p><p>
+The <code>fork</code> function creates a new process.
+</p><p>
+If the operation is successful, there are then both parent and child
+processes and both see <code>fork</code> return, but with different values: it
+returns a value of <code>0</code> in the child process and returns the child's
+process ID in the parent process.
+</p><p>
+If process creation failed, <code>fork</code> returns a value of <code>-1</code> in
+the parent process.  The following <code>errno</code> error conditions are
+defined for <code>fork</code>:
+</p><p>
+</p><dl compact="">
+<dt><code>EAGAIN</code>
+</dt><dd>There aren't enough system resources to create another process, or the
+user already has too many processes running.
+<p>
+</p></dd><dt><code>ENOMEM</code>
+</dt><dd>The process requires more space than the system can supply.
+</dd></dl>
+<p>
+The specific attributes of the child process that differ from the
+parent process are:
+</p><p>
+</p><ul>
+<li>
+The child process has its own unique process ID.
+<p>
+</p></li><li>
+The parent process ID of the child process is the process ID of its
+parent process.
+<p>
+</p></li><li>
+The child process gets its own copies of the parent process's open file
+descriptors.  Subsequently changing attributes of the file descriptors
+in the parent process won't affect the file descriptors in the child,
+and vice versa.  See section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_12.html#SEC181">Control Operations on Files</a>.
+<p>
+</p></li><li>
+The elapsed processor times for the child process are set to zero;
+see section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_19.html#SEC310">Processor Time</a>.
+<p>
+</p></li><li>
+The child doesn't inherit file locks set by the parent process.
+See section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_12.html#SEC181">Control Operations on Files</a>.
+<p>
+</p></li><li>
+The child doesn't inherit alarms set by the parent process.
+See section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_19.html#SEC321">Setting an Alarm</a>.
+<p>
+</p></li><li>
+The set of pending signals (see section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_21.html#SEC334">How Signals Are Delivered</a>) for the child
+process is cleared.  (The child process inherits its mask of blocked
+signals and signal actions from the parent process.)
+</li></ul>
+<p>
+<a name="IDX1701"></a>
+<u>Function:</u> pid_t <b>vfork</b> <i>(void)</i></p><p>
+The <code>vfork</code> function is similar to <code>fork</code> but more efficient;
+however, there are restrictions you must follow to use it safely.
+</p><p>
+While <code>fork</code> makes a complete copy of the calling process's address
+space and allows both the parent and child to execute independently,
+<code>vfork</code> does not make this copy.  Instead, the child process
+created with <code>vfork</code> shares its parent's address space until it calls
+one of the <code>exec</code> functions.  In the meantime, the parent process
+suspends execution.
+</p><p>
+You must be very careful not to allow the child process created with
+<code>vfork</code> to modify any global data or even local variables shared
+with the parent.  Furthermore, the child process cannot return from (or
+do a long jump out of) the function that called <code>vfork</code>!  This
+would leave the parent process's control information very confused.  If
+in doubt, use <code>fork</code> instead.
+</p><p>
+Some operating systems don't really implement <code>vfork</code>.  The GNU C
+library permits you to use <code>vfork</code> on all systems, but actually
+executes <code>fork</code> if <code>vfork</code> isn't available.  If you follow
+the proper precautions for using <code>vfork</code>, your program will still
+work even if the system uses <code>fork</code> instead.
+</p><p>
+<a name="IDX1702"></a>
+<a name="IDX1703"></a>
+</p><h2><a name="SEC406" href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_toc.html#SEC406">Executing a File</a></h2>
+<p>
+This section describes the <code>exec</code> family of functions, for executing
+a file as a process image.  You can use these functions to make a child
+process execute a new program after it has been forked.
+<a name="IDX1704"></a>
+</p><p>
+The functions in this family differ in how you specify the arguments,
+but otherwise they all do the same thing.  They are declared in the
+header file <tt>`unistd.h'</tt>.
+</p><p>
+<a name="IDX1705"></a>
+<u>Function:</u> int <b>execv</b> <i>(const char *<var>filename</var>, char *const <var>argv</var><tt>[]</tt>)</i></p><p>
+The <code>execv</code> function executes the file named by <var>filename</var> as a
+new process image.
+</p><p>
+The <var>argv</var> argument is an array of null-terminated strings that is
+used to provide a value for the <code>argv</code> argument to the <code>main</code>
+function of the program to be executed.  The last element of this array
+must be a null pointer.  See section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_22.html#SEC386">Program Arguments</a>, for information on
+how programs can access these arguments.
+</p><p>
+The environment for the new process image is taken from the
+<code>environ</code> variable of the current process image; see section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_22.html#SEC392">Environment Variables</a>, for information about environments.
+</p><p>
+<a name="IDX1706"></a>
+<u>Function:</u> int <b>execl</b> <i>(const char *<var>filename</var>, const char *<var>arg0</var>, ...)</i></p><p>
+This is similar to <code>execv</code>, but the <var>argv</var> strings are
+specified individually instead of as an array.  A null pointer must be
+passed as the last such argument.
+</p><p>
+<a name="IDX1707"></a>
+<u>Function:</u> int <b>execve</b> <i>(const char *<var>filename</var>, char *const <var>argv</var><tt>[]</tt>, char *const <var>env</var><tt>[]</tt>)</i></p><p>
+This is similar to <code>execv</code>, but permits you to specify the environment
+for the new program explicitly as the <var>env</var> argument.  This should
+be an array of strings in the same format as for the <code>environ</code> 
+variable; see section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_22.html#SEC393">Environment Access</a>.
+</p><p>
+<a name="IDX1708"></a>
+<u>Function:</u> int <b>execle</b> <i>(const char *<var>filename</var>, const char *<var>arg0</var>, char *const <var>env</var><tt>[]</tt>, ...)</i></p><p>
+This is similar to <code>execl</code>, but permits you to specify the
+environment for the new program explicitly.  The environment argument is
+passed following the null pointer that marks the last <var>argv</var>
+argument, and should be an array of strings in the same format as for
+the <code>environ</code> variable.
+</p><p>
+<a name="IDX1709"></a>
+<u>Function:</u> int <b>execvp</b> <i>(const char *<var>filename</var>, char *const <var>argv</var><tt>[]</tt>)</i></p><p>
+The <code>execvp</code> function is similar to <code>execv</code>, except that it
+searches the directories listed in the <code>PATH</code> environment variable
+(see section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_22.html#SEC394">Standard Environment Variables</a>) to find the full file name of a
+file from <var>filename</var> if <var>filename</var> does not contain a slash.
+</p><p>
+This function is useful for executing system utility programs, because
+it looks for them in the places that the user has chosen.  Shells use it
+to run the commands that users type.
+</p><p>
+<a name="IDX1710"></a>
+<u>Function:</u> int <b>execlp</b> <i>(const char *<var>filename</var>, const char *<var>arg0</var>, ...)</i></p><p>
+This function is like <code>execl</code>, except that it performs the same
+file name searching as the <code>execvp</code> function.
+</p><p>
+The size of the argument list and environment list taken together must
+not be greater than <code>ARG_MAX</code> bytes.  See section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_27.html#SEC455">General Capacity Limits</a>.  In
+the GNU system, the size (which compares against <code>ARG_MAX</code>)
+includes, for each string, the number of characters in the string, plus
+the size of a <code>char *</code>, plus one, rounded up to a multiple of the
+size of a <code>char *</code>.  Other systems may have somewhat different
+rules for counting.
+</p><p>
+These functions normally don't return, since execution of a new program
+causes the currently executing program to go away completely.  A value
+of <code>-1</code> is returned in the event of a failure.  In addition to the
+usual file name syntax errors (see section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_10.html#SEC115">File Name Errors</a>), the following
+<code>errno</code> error conditions are defined for these functions:
+</p><p>
+</p><dl compact="">
+<dt><code>E2BIG</code>
+</dt><dd>The combined size of the new program's argument list and environment
+list is larger than <code>ARG_MAX</code> bytes.  The GNU system has no
+specific limit on the argument list size, so this error code cannot
+result, but you may get <code>ENOMEM</code> instead if the arguments are too
+big for available memory.
+<p>
+</p></dd><dt><code>ENOEXEC</code>
+</dt><dd>The specified file can't be executed because it isn't in the right format.
+<p>
+</p></dd><dt><code>ENOMEM</code>
+</dt><dd>Executing the specified file requires more storage than is available.
+</dd></dl>
+<p>
+If execution of the new file succeeds, it updates the access time field
+of the file as if the file had been read.  See section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_13.html#SEC209">File Times</a>, for more
+details about access times of files.
+</p><p>
+The point at which the file is closed again is not specified, but
+is at some point before the process exits or before another process
+image is executed.
+</p><p>
+Executing a new process image completely changes the contents of memory,
+copying only the argument and environment strings to new locations.  But
+many other attributes of the process are unchanged:
+</p><p>
+</p><ul>
+<li>
+The process ID and the parent process ID.  See section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_23.html#SEC403">Process Creation Concepts</a>.
+<p>
+</p></li><li>
+Session and process group membership.  See section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_24.html#SEC412">Concepts of Job Control</a>.
+<p>
+</p></li><li>
+Real user ID and group ID, and supplementary group IDs.  See section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_25.html#SEC431">The Persona of a Process</a>.
+<p>
+</p></li><li>
+Pending alarms.  See section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_19.html#SEC321">Setting an Alarm</a>.
+<p>
+</p></li><li>
+Current working directory and root directory.  See section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_13.html#SEC188">Working Directory</a>.
+<p>
+</p></li><li>
+File mode creation mask.  See section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_13.html#SEC207">Assigning File Permissions</a>.
+<p>
+</p></li><li>
+Process signal mask; see section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_21.html#SEC371">Process Signal Mask</a>.
+<p>
+</p></li><li>
+Pending signals; see section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_21.html#SEC368">Blocking Signals</a>.
+<p>
+</p></li><li>
+Elapsed processor time associated with the process; see section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_19.html#SEC310">Processor Time</a>.
+</li></ul>
+<p>
+If the set-user-ID and set-group-ID mode bits of the process image file
+are set, this affects the effective user ID and effective group ID
+(respectively) of the process.  These concepts are discussed in detail
+in section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_25.html#SEC431">The Persona of a Process</a>.
+</p><p>
+Signals that are set to be ignored in the existing process image are
+also set to be ignored in the new process image.  All other signals are
+set to the default action in the new process image.  For more
+information about signals, see section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_21.html#SEC330">Signal Handling</a>.
+</p><p>
+File descriptors open in the existing process image remain open in the
+new process image, unless they have the <code>FD_CLOEXEC</code>
+(close-on-exec) flag set.  The files that remain open inherit all
+attributes of the open file description from the existing process image,
+including file locks.  File descriptors are discussed in section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_12.html#SEC171">Low-Level Input/Output</a>.
+</p><p>
+Streams, by contrast, cannot survive through <code>exec</code> functions,
+because they are located in the memory of the process itself.  The new
+process image has no streams except those it creates afresh.  Each of
+the streams in the pre-<code>exec</code> process image has a descriptor inside
+it, and these descriptors do survive through <code>exec</code> (provided that
+they do not have <code>FD_CLOEXEC</code> set.  The new process image can
+reconnect these to new streams using <code>fdopen</code> (see section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_12.html#SEC175">Descriptors and Streams</a>).
+</p><p>
+<a name="IDX1711"></a>
+<a name="IDX1712"></a>
+<a name="IDX1713"></a>
+</p><h2><a name="SEC407" href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_toc.html#SEC407">Process Completion</a></h2>
+<p>
+The functions described in this section are used to wait for a child
+process to terminate or stop, and determine its status.  These functions
+are declared in the header file <tt>`sys/wait.h'</tt>.
+<a name="IDX1714"></a>
+</p><p>
+<a name="IDX1715"></a>
+<u>Function:</u> pid_t <b>waitpid</b> <i>(pid_t <var>pid</var>, int *<var>status_ptr</var>, int <var>options</var>)</i></p><p>
+The <code>waitpid</code> function is used to request status information from a
+child process whose process ID is <var>pid</var>.  Normally, the calling
+process is suspended until the child process makes status information
+available by terminating.
+</p><p>
+Other values for the <var>pid</var> argument have special interpretations.  A
+value of <code>-1</code> or <code>WAIT_ANY</code> requests status information for
+any child process; a value of <code>0</code> or <code>WAIT_MYPGRP</code> requests
+information for any child process in the same process group as the
+calling process; and any other negative value - <var>pgid</var>
+requests information for any child process whose process group ID is
+<var>pgid</var>.
+</p><p>
+If status information for a child process is available immediately, this
+function returns immediately without waiting.  If more than one eligible
+child process has status information available, one of them is chosen
+randomly, and its status is returned immediately.  To get the status
+from the other eligible child processes, you need to call <code>waitpid</code>
+again.
+</p><p>
+The <var>options</var> argument is a bit mask.  Its value should be the
+bitwise OR (that is, the <samp>`|'</samp> operator) of zero or more of the
+<code>WNOHANG</code> and <code>WUNTRACED</code> flags.  You can use the
+<code>WNOHANG</code> flag to indicate that the parent process shouldn't wait;
+and the <code>WUNTRACED</code> flag to request status information from stopped
+processes as well as processes that have terminated.
+</p><p>
+The status information from the child process is stored in the object
+that <var>status_ptr</var> points to, unless <var>status_ptr</var> is a null pointer.
+</p><p>
+The return value is normally the process ID of the child process whose
+status is reported.  If the <code>WNOHANG</code> option was specified and no
+child process is waiting to be noticed, the value is zero.  A value of
+<code>-1</code> is returned in case of error.  The following <code>errno</code>
+error conditions are defined for this function:
+</p><p>
+</p><dl compact="">
+<dt><code>EINTR</code>
+</dt><dd>The function was interrupted by delivery of a signal to the calling
+process.  See section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_21.html#SEC362">Primitives Interrupted by Signals</a>.
+<p>
+</p></dd><dt><code>ECHILD</code>
+</dt><dd>There are no child processes to wait for, or the specified <var>pid</var>
+is not a child of the calling process.
+<p>
+</p></dd><dt><code>EINVAL</code>
+</dt><dd>An invalid value was provided for the <var>options</var> argument.
+</dd></dl>
+<p>
+These symbolic constants are defined as values for the <var>pid</var> argument
+to the <code>waitpid</code> function.
+</p><p>
+</p><dl compact="">
+<dt><code>WAIT_ANY</code>
+</dt><dd><p>
+This constant macro (whose value is <code>-1</code>) specifies that
+<code>waitpid</code> should return status information about any child process.
+</p><p>
+</p></dd><dt><code>WAIT_MYPGRP</code>
+</dt><dd>This constant (with value <code>0</code>) specifies that <code>waitpid</code> should
+return status information about any child process in the same process
+group as the calling process.
+</dd></dl>
+<p>
+These symbolic constants are defined as flags for the <var>options</var>
+argument to the <code>waitpid</code> function.  You can bitwise-OR the flags
+together to obtain a value to use as the argument.
+</p><p>
+</p><dl compact="">
+<dt><code>WNOHANG</code>
+</dt><dd><p>
+This flag specifies that <code>waitpid</code> should return immediately
+instead of waiting, if there is no child process ready to be noticed.
+</p><p>
+</p></dd><dt><code>WUNTRACED</code>
+</dt><dd><p>
+This flag specifies that <code>waitpid</code> should report the status of any
+child processes that have been stopped as well as those that have
+terminated.
+</p></dd></dl>
+<p>
+<a name="IDX1716"></a>
+<u>Function:</u> pid_t <b>wait</b> <i>(int *<var>status_ptr</var>)</i></p><p>
+This is a simplified version of <code>waitpid</code>, and is used to wait
+until any one child process terminates.  The call:
+</p><p>
+</p><pre>wait (&amp;status)
+</pre>
+<p>
+is exactly equivalent to:
+</p><p>
+</p><pre>waitpid (-1, &amp;status, 0)
+</pre>
+<p>
+Here's an example of how to use <code>waitpid</code> to get the status from
+all child processes that have terminated, without ever waiting.  This
+function is designed to be a handler for <code>SIGCHLD</code>, the signal that
+indicates that at least one child process has terminated.
+</p><p>
+</p><pre>void
+sigchld_handler (int signum)
+{
+  int pid;
+  int status;
+  while (1)
+    {
+      pid = waitpid (WAIT_ANY, &amp;status, WNOHANG);
+      if (pid &lt; 0)
+        {
+          perror ("waitpid");
+          break;
+        }
+      if (pid == 0)
+        break;
+      notice_termination (pid, status);
+    }
+}
+</pre>
+<p>
+</p><h2><a name="SEC408" href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_toc.html#SEC408">Process Completion Status</a></h2>
+<p>
+If the exit status value (see section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_22.html#SEC395">Program Termination</a>) of the child
+process is zero, then the status value reported by <code>waitpid</code> or
+<code>wait</code> is also zero.  You can test for other kinds of information
+encoded in the returned status value using the following macros.
+These macros are defined in the header file <tt>`sys/wait.h'</tt>.
+<a name="IDX1717"></a>
+</p><p>
+<a name="IDX1718"></a>
+<u>Macro:</u> int <b>WIFEXITED</b> <i>(int <var>status</var>)</i></p><p>
+This macro returns a nonzero value if the child process terminated
+normally with <code>exit</code> or <code>_exit</code>.
+</p><p>
+<a name="IDX1719"></a>
+<u>Macro:</u> int <b>WEXITSTATUS</b> <i>(int <var>status</var>)</i></p><p>
+If <code>WIFEXITED</code> is true of <var>status</var>, this macro returns the
+low-order 8 bits of the exit status value from the child process.
+See section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_22.html#SEC397">Exit Status</a>.
+</p><p>
+<a name="IDX1720"></a>
+<u>Macro:</u> int <b>WIFSIGNALED</b> <i>(int <var>status</var>)</i></p><p>
+This macro returns a nonzero value if the child process terminated
+because it received a signal that was not handled.
+See section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_21.html#SEC330">Signal Handling</a>.
+</p><p>
+<a name="IDX1721"></a>
+<u>Macro:</u> int <b>WTERMSIG</b> <i>(int <var>status</var>)</i></p><p>
+If <code>WIFSIGNALED</code> is true of <var>status</var>, this macro returns the
+signal number of the signal that terminated the child process.
+</p><p>
+<a name="IDX1722"></a>
+<u>Macro:</u> int <b>WCOREDUMP</b> <i>(int <var>status</var>)</i></p><p>
+This macro returns a nonzero value if the child process terminated
+and produced a core dump.
+</p><p>
+<a name="IDX1723"></a>
+<u>Macro:</u> int <b>WIFSTOPPED</b> <i>(int <var>status</var>)</i></p><p>
+This macro returns a nonzero value if the child process is stopped.
+</p><p>
+<a name="IDX1724"></a>
+<u>Macro:</u> int <b>WSTOPSIG</b> <i>(int <var>status</var>)</i></p><p>
+If <code>WIFSTOPPED</code> is true of <var>status</var>, this macro returns the
+signal number of the signal that caused the child process to stop.
+</p><p>
+</p><h2><a name="SEC409" href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_toc.html#SEC409">BSD Process Wait Functions</a></h2>
+<p>
+The GNU library also provides these related facilities for compatibility
+with BSD Unix.  BSD uses the <code>union wait</code> data type to represent
+status values rather than an <code>int</code>.  The two representations are
+actually interchangeable; they describe the same bit patterns.  The GNU
+C Library defines macros such as <code>WEXITSTATUS</code> so that they will
+work on either kind of object, and the <code>wait</code> function is defined
+to accept either type of pointer as its <var>status_ptr</var> argument.
+</p><p>
+These functions are declared in <tt>`sys/wait.h'</tt>.
+<a name="IDX1725"></a>
+</p><p>
+<a name="IDX1726"></a>
+<u>Data Type:</u> <b>union wait</b></p><p>
+This data type represents program termination status values.  It has
+the following members:
+</p><p>
+</p><dl compact="">
+<dt><code>int w_termsig</code>
+</dt><dd>This member is equivalent to the <code>WTERMSIG</code> macro.
+<p>
+</p></dd><dt><code>int w_coredump</code>
+</dt><dd>This member is equivalent to the <code>WCOREDUMP</code> macro.
+<p>
+</p></dd><dt><code>int w_retcode</code>
+</dt><dd>This member is equivalent to the <code>WEXISTATUS</code> macro.
+<p>
+</p></dd><dt><code>int w_stopsig</code>
+</dt><dd>This member is equivalent to the <code>WSTOPSIG</code> macro.
+</dd></dl>
+<p>
+Instead of accessing these members directly, you should use the
+equivalent macros.
+</p><p>
+<a name="IDX1727"></a>
+<u>Function:</u> pid_t <b>wait3</b> <i>(union wait *<var>status_ptr</var>, int <var>options</var>, struct rusage *<var>usage</var>)</i></p><p>
+If <var>usage</var> is a null pointer, <code>wait3</code> is equivalent to
+<code>waitpid (-1, <var>status_ptr</var>, <var>options</var>)</code>.
+</p><p>
+If <var>usage</var> is not null, <code>wait3</code> stores usage figures for the
+child process in <code>*<var>rusage</var></code> (but only if the child has
+terminated, not if it has stopped).  See section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_19.html#SEC323">Resource Usage</a>.
+</p><p>
+<a name="IDX1728"></a>
+<u>Function:</u> pid_t <b>wait4</b> <i>(pid_t <var>pid</var>, union wait *<var>status_ptr</var>, int <var>options</var>, struct rusage *<var>usage</var>)</i></p><p>
+If <var>usage</var> is a null pointer, <code>wait4</code> is equivalent to
+<code>waitpid (<var>pid</var>, <var>status_ptr</var>, <var>options</var>)</code>.
+</p><p>
+If <var>usage</var> is not null, <code>wait4</code> stores usage figures for the
+child process in <code>*<var>rusage</var></code> (but only if the child has
+terminated, not if it has stopped).  See section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_19.html#SEC323">Resource Usage</a>.
+</p><p>
+</p><h2><a name="SEC410" href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_toc.html#SEC410">Process Creation Example</a></h2>
+<p>
+Here is an example program showing how you might write a function
+similar to the built-in <code>system</code>.  It executes its <var>command</var>
+argument using the equivalent of <samp>`sh -c <var>command</var>'</samp>.
+</p><p>
+</p><pre>#include &lt;stddef.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/wait.h&gt;
+
+/* Execute the command using this shell program.  */
+#define SHELL "/bin/sh"
+
+int 
+my_system (const char *command)
+{
+  int status;
+  pid_t pid;
+
+  pid = fork ();
+  if (pid == 0)
+    {
+      /* This is the child process.  Execute the shell command. */
+      execl (SHELL, SHELL, "-c", command, NULL);
+      _exit (EXIT_FAILURE);
+    }
+  else if (pid &lt; 0)
+    /* The fork failed.  Report failure.  */
+    status = -1;
+  else
+    /* This is the parent process.  Wait for the child to complete.  */
+    if (waitpid (pid, &amp;status, 0) != pid)
+      status = -1;
+  return status;
+}
+</pre>
+<p>
+There are a couple of things you should pay attention to in this
+example.
+</p><p>
+Remember that the first <code>argv</code> argument supplied to the program
+represents the name of the program being executed.  That is why, in the
+call to <code>execl</code>, <code>SHELL</code> is supplied once to name the program
+to execute and a second time to supply a value for <code>argv[0]</code>.  
+</p><p>
+The <code>execl</code> call in the child process doesn't return if it is
+successful.  If it fails, you must do something to make the child
+process terminate.  Just returning a bad status code with <code>return</code>
+would leave two processes running the original program.  Instead, the
+right behavior is for the child process to report failure to its parent
+process.
+</p><p>
+Call <code>_exit</code> to accomplish this.  The reason for using <code>_exit</code>
+instead of <code>exit</code> is to avoid flushing fully buffered streams such
+as <code>stdout</code>.  The buffers of these streams probably contain data
+that was copied from the parent process by the <code>fork</code>, data that
+will be output eventually by the parent process.  Calling <code>exit</code> in
+the child would output the data twice.  See section <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_22.html#SEC400">Termination Internals</a>.
+</p><p>Go to the <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_22.html">previous</a>, <a href="http://www.cs.utah.edu/dept/old/texinfo/glibc-manual-0.02/library_24.html">next</a> section.</p><p>
+</p></body></html>

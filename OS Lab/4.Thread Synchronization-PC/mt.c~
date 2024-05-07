@@ -1,0 +1,47 @@
+Thread Creation..
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<pthread.h>
+#include<unistd.h>
+
+pthread_t tid[2];
+int cnt;
+
+void* show(void* a)
+{
+	int i=0;
+	cnt+=1;
+
+
+	printf("\n\t Job %d started\n",cnt);
+
+	for(i=0;i<cnt;i++)
+	sleep(4);
+
+	printf("\n\t Job %d FINISHED\n",cnt);
+	
+	return NULL;
+
+}
+
+int main(void)
+{
+	int i=0;
+	int t;
+
+	while(i<2)
+	{
+		t=pthread_create(&(tid[i]),NULL,&show,NULL);
+		if(t!=0)
+		printf("cant create thread \n");	
+	
+		i++;		
+	}
+
+	pthread_join(tid[0],NULL);
+	pthread_join(tid[1],NULL);
+
+	return 0;
+}
+

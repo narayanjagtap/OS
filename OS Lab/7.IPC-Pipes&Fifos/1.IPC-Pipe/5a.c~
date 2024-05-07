@@ -1,0 +1,66 @@
+/*  TITLE: Inter-process Communication (IPC) in Linux using Pipes. */
+
+#include<stdio.h>
+#include<sys/types.h>
+#include<string.h>
+#include<stdlib.h>
+#define SIZE 100
+
+int main()
+{
+    char inbuf[SIZE],filename[SIZE];
+    pid_t pid;
+    FILE *file;
+    unsigned count=0;
+    int p[2],p1[2],sz;
+
+    if(pipe(p)==-1)
+        {
+            printf("Error creating pipe\n");
+        }
+    if(pipe(p1)==-1)
+	{
+	    printf("Error creating pipe1\n");
+	}	
+
+    printf("Enter the filename:");
+    scanf("%s",filename);
+
+    write(p[1],filename,sizeof(filename));
+    close(p[1]);
+
+    pid=fork();
+    if(pid==0)
+        { 
+                    read(p[0],inbuf,SIZE);
+                    close(p[0]);
+                    printf("inbuf contains file name -  %s\n",inbuf);
+                    file=fopen(inbuf,"r");
+ 
+                        
+                        while((!feof(file))&&(count<sizeof(inbuf)))
+                            {
+                                inbuf[count++]=fgetc(file);
+                            }
+                        
+                        if(feof(file))
+                            inbuf[--count]=0;
+                        else
+                            inbuf[sizeof(inbuf)-1]=0;
+
+                        printf("\nbefore writing,inbuf=  %s\n",inbuf);
+                        write(p1[1],inbuf,sizeof(inbuf));
+                        close(p1[1]);
+
+        }
+    else
+        {
+            wait(0);
+            read(p1[0],inbuf,SIZE);
+            printf("inbuf=%s\n",inbuf);
+            close(p1[0]);
+        }
+        //exit(0);
+}
+
+
